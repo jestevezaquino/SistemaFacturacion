@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MantenimientoService } from 'src/services/mantenimiento.service';
 
 @Component({
   selector: 'app-mantenimiento',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MantenimientoComponent implements OnInit {
 
-  constructor() { }
+  datos:any = [];
 
-  ngOnInit(): void {
+  constructor(private MS:MantenimientoService) { }
+
+  ngOnInit(){
+    this.MS.obtenerClientes().subscribe((info:any)=>{
+      this.datos = info;
+      console.log(this.datos);
+    }); 
   }
-
 }
