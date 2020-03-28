@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MantenimientoService } from 'src/services/mantenimiento.service';
 
 @Component({
   selector: 'app-mantenimiento',
@@ -8,9 +7,13 @@ import { MantenimientoService } from 'src/services/mantenimiento.service';
 })
 export class MantenimientoComponent implements OnInit {
 
-  constructor(private MS:MantenimientoService) { }
+  ventana:string;
 
-  ngOnInit(){
-    
+  constructor() { }
+
+  ngOnInit(){}
+
+  abrirProductos(){
+    this.ventana="productos";
   }
 }

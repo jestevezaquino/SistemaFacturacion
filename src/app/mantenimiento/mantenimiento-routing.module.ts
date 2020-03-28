@@ -3,7 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MantenimientoComponent } from './mantenimiento.component';
 
-const routes: Routes = [{ path: '', component: MantenimientoComponent }];
+let routes: Routes = [
+    { path: '', component: MantenimientoComponent },
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
