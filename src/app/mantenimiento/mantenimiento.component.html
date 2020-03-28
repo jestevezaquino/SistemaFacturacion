@@ -1,5 +1,16 @@
-<div class="layout-row">
-     <div class="flex">
+<div>
+     <mat-toolbar color="Second">
+          Módulo de mantenimiento
+     </mat-toolbar>
+</div>
+<div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="40px"
+     fx.LayoutGap.xs="0px"
+>
+     <div fxFlex="20%">
           <mat-drawer-container class="sidenav">
                <mat-drawer-content mode="side" opened>
                     <mat-list class="lista">
@@ -24,11 +35,12 @@
                </mat-drawer-content>
           </mat-drawer-container>
      </div>
-     <div class="flex">
+     <div class="tabs" fxFlex>
           <mat-tab-group>
-               <mat-tab label="First"> Content 1 </mat-tab>
-               <mat-tab label="Second"> Content 2 </mat-tab>
-               <mat-tab label="Third"> Content 3 </mat-tab>
+               <mat-tab label="Ver productos"> Content 1 </mat-tab>
+               <mat-tab label="Agregar producto"> Content 2 </mat-tab>
+               <mat-tab label="Editar producto"> Content 3 </mat-tab>
+               <mat-tab label="Eliminar producto"> Content 3 </mat-tab>
           </mat-tab-group>
      </div>
 </div>
