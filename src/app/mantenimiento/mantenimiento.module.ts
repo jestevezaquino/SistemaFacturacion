@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
 import { MantenimientoComponent } from './mantenimiento.component';
-
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [MantenimientoComponent],
   imports: [
     CommonModule,
-    MantenimientoRoutingModule
+    MantenimientoRoutingModule,
+    MaterialModule
   ]
 })
 export class MantenimientoModule { }

@@ -1,4 +1,25 @@
-<mat-toolbar>
-     
+<mat-toolbar color="primary">
+     <span>Sistema de Facturación</span>
+     <span class="fill-remaining-space"></span>
+
+     <span class="mat-body-2">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+               <mat-icon>dashboard</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+               <button mat-menu-item>
+                    <mat-icon>build</mat-icon>
+                    <span>Mantenimiento</span>
+               </button>
+               <button mat-menu-item>
+                    <mat-icon>business</mat-icon>
+                    <span>Procesos</span>
+               </button>
+               <button mat-menu-item>
+                    <mat-icon>zoom_in</mat-icon>
+                    <span>Consulta</span>
+               </button>
+          </mat-menu>
+     </span>
 </mat-toolbar>
 <router-outlet></router-outlet>
