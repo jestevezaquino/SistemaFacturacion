@@ -8,6 +8,8 @@ export class MantenimientoService {
 
   constructor(private http:HttpClient) {}
 
+  /****************** CRUD PRODUCTOS ******************/
+
   obtenerProductos(){
     return this.http.get("https://localhost:44306/api/mantenimiento/obtener_productos");
   }
@@ -24,15 +26,29 @@ export class MantenimientoService {
     return this.http.post("https://localhost:44306/api/mantenimiento/agregar_producto", producto)
   }
 
-  editarProducto(id:number, producto:any){
-    return this.http.put("https://localhost:44306/api/mantenimiento/editar_producto/"+id, producto);
+  editarProducto(producto:any){
+    return this.http.put("https://localhost:44306/api/mantenimiento/editar_producto", producto);
   }
+
+  eliminarProducto(id:number){
+    return this.http.delete("https://localhost:44306/api/mantenimiento/eliminar_producto/"+id);
+  }
+
+  /****************** CRUD PRODUCTOS ******************/
+
+  /****************** CRUD PROVEEDORES ******************/
 
   obtenerProveedores(){
     return this.http.get("https://localhost:44306/api/mantenimiento/obtener_proveedores");
   }
 
+  /****************** CRUD PROVEEDORES ******************/
+
+  /****************** CRUD CLIENTES ******************/
+
   obtenerClientes(){
     return this.http.get("https://localhost:44306/api/mantenimiento/obtener_clientes");
   }
+
+  /****************** CRUD CLIENTES ******************/
 }

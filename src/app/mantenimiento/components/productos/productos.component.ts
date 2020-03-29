@@ -36,7 +36,7 @@ export class ProductosComponent implements OnInit {
     {
         this.editarProductoComponent.ngOnInit(); //Or whatever name the method is called
     }
-    else
+    else if(event.index == 3)
     {
         this.eliminarProductoComponent.ngOnInit(); //Or whatever name the method is called
     } 
