@@ -1,1 +1,48 @@
-<p>agregar-producto works!</p>
+<div class="container fondo"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="0px"
+     fx.LayoutGap.xs="0px"
+>
+<div fxFlex="33.3%"></div>
+<div class="main-container" fxFlex="33.3%">
+     <div>
+          <mat-card>
+               <br/>
+               <mat-card-header>
+                 <mat-card-title fxLayoutAlign="center">Agregar un producto</mat-card-title>
+                 <mat-card-subtitle fxLayoutAlign="center">En caso de existencia, se suma la cantidad ingresada.</mat-card-subtitle>
+               </mat-card-header>
+               <mat-card-content fxLayoutAlign="center">
+                    <form [formGroup]="Form">
+                         <mat-form-field appearance="standard">
+                              <mat-label>Nombre del producto</mat-label>
+                              <input formControlName="nombre" matInput placeholder="Escriba un nombre:">
+                              <mat-hint class="rojo" *ngIf="(this.Form.controls.nombre.dirty || this.Form.controls.nombre.touched) && this.Form.controls.nombre.invalid">Requerido (3 caracteres min.)</mat-hint>
+                         </mat-form-field>
+                         <br/><br/>
+                         <mat-form-field appearance="standard">
+                              <mat-label>Precio</mat-label>
+                              <input formControlName="precio" matInput type="number" class="example-right-align">
+                              <span class="rojo" *ngIf="(this.Form.controls.precio.dirty || this.Form.controls.precio.touched) && this.Form.controls.precio.invalid; else valido1" matPrefix>RD$&nbsp;</span>
+                              <span class="rojo" *ngIf="(this.Form.controls.precio.dirty || this.Form.controls.precio.touched) && this.Form.controls.precio.invalid; else valido2" matSuffix>.00</span>
+                              <ng-template #valido1>
+                                   <span matPrefix>RD$&nbsp;</span>
+                              </ng-template>
+                              <ng-template #valido2>
+                                   <span matSuffix>.00</span>
+                              </ng-template>
+                              <mat-hint class="rojo" *ngIf="(this.Form.controls.precio.dirty || this.Form.controls.precio.touched) && this.Form.controls.precio.invalid">Requerido (3 caracteres min.)</mat-hint>
+                         </mat-form-field><br/>
+                         <mat-card-actions align="end">
+                              <button mat-raised-button color="accent">LIMPIAR</button>
+                              <button type="submit" mat-raised-button color="primary">AGREGAR</button>
+                         </mat-card-actions>
+                    </form>
+               </mat-card-content>
+          </mat-card>
+     </div>
+</div>
+<div fxFlex="33.3%"></div>
+</div>

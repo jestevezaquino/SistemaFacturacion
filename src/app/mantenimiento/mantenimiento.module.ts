@@ -5,6 +5,7 @@ import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
 import { MantenimientoComponent } from './mantenimiento.component';
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductosComponent } from './components/productos/productos.component';
 import { VerProductosComponent } from './components/productos/ver-productos/ver-productos.component';
 import { AgregarProductoComponent } from './components/productos/agregar-producto/agregar-producto.component';
@@ -17,7 +18,9 @@ import { EliminarProductoComponent } from './components/productos/eliminar-produ
     CommonModule,
     MantenimientoRoutingModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MantenimientoModule { }
