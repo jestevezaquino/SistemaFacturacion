@@ -37,7 +37,7 @@
                          </mat-form-field><br/>
                          <mat-card-actions align="end">
                               <button mat-raised-button color="accent">LIMPIAR</button>
-                              <button type="submit" mat-raised-button color="primary">AGREGAR</button>
+                              <button (click)="agregarProducto()" type="submit" [disabled]="this.Form.invalid" mat-raised-button color="primary">AGREGAR</button>
                          </mat-card-actions>
                     </form>
                </mat-card-content>

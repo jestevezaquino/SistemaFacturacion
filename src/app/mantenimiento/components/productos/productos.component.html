@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)="onTabChanged($event)">
      <mat-tab label="Ver productos"> 
           <app-ver-productos></app-ver-productos>
      </mat-tab>
