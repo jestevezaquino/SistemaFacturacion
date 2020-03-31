@@ -13,9 +13,14 @@ import { EditarProductoComponent } from './components/productos/editar-producto/
 import { EliminarProductoComponent } from './components/productos/eliminar-producto/eliminar-producto.component';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 import { SnackBarComponent } from '../shared/snack-bar/snack-bar.component';
+import { ProveedoresComponent } from './components/proveedores/proveedores.component';
+import { AgregarProveedorComponent } from './components/proveedores/agregar-proveedor/agregar-proveedor.component';
+import { EditarProveedorComponent } from './components/proveedores/editar-proveedor/editar-proveedor.component';
+import { EliminarProveedorComponent } from './components/proveedores/eliminar-proveedor/eliminar-proveedor.component';
+import { VerProveedoresComponent } from './components/proveedores/ver-proveedores/ver-proveedores.component';
 
 @NgModule({
-  declarations: [MantenimientoComponent, ProductosComponent, VerProductosComponent, AgregarProductoComponent, EditarProductoComponent, EliminarProductoComponent],
+  declarations: [MantenimientoComponent, ProductosComponent, VerProductosComponent, AgregarProductoComponent, EditarProductoComponent, EliminarProductoComponent, ProveedoresComponent, AgregarProveedorComponent, EditarProveedorComponent, EliminarProveedorComponent, VerProveedoresComponent],
   imports: [
     CommonModule,
     MantenimientoRoutingModule,

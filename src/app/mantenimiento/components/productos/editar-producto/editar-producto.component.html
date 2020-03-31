@@ -41,8 +41,8 @@
                               <mat-hint class="rojo" *ngIf="(this.Form.controls.precio.dirty || this.Form.controls.precio.touched) && this.Form.controls.precio.invalid">Requerido (ingrese un numero válido.)</mat-hint>
                          </mat-form-field><br/>
                          <mat-card-actions align="end">
-                              <button (click)="limpiarForm()" type="reset" mat-raised-button color="accent">LIMPIAR</button>
-                              <button (click)="openDialog()" type="button" [disabled]="this.Form.invalid" mat-raised-button color="primary">EDITAR</button>
+                              <button (click)="limpiarForm()" type="reset" mat-raised-button color="primary">LIMPIAR</button>
+                              <button (click)="openDialog()" type="button" [disabled]="this.Form.invalid" mat-raised-button color="accent"><mat-icon>create</mat-icon> <span> EDITAR</span></button>
                          </mat-card-actions>
                     </form>
                </mat-card-content>

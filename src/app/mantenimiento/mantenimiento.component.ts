@@ -16,4 +16,12 @@ export class MantenimientoComponent implements OnInit {
   abrirProductos(){
     this.ventana="productos";
   }
+
+  abrirProveedores(){
+    this.ventana="proveedores";
+  }
+
+  abrirClientes(){
+    this.ventana="clientes";
+  }
 }

@@ -26,7 +26,7 @@ export class ProductosComponent implements OnInit {
   {
     if (event.index == 0)
     {
-        this.verProductosComponent.ngOnInit();//Or whatever name the method is called
+        this.verProductosComponent.ngOnInit(); //Or whatever name the method is called
     }
     else if(event.index == 1)
     {

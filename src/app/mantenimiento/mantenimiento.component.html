@@ -21,13 +21,13 @@
                          </mat-list-item>
                          <mat-divider></mat-divider>
                          <mat-list-item>
-                              <a mat-button class="btn-lista">
+                              <a mat-button class="btn-lista" (click)="abrirProveedores()">
                                    <div>Proveedores</div>
                               </a>
                          </mat-list-item>
                          <mat-divider></mat-divider>
                          <mat-list-item>
-                              <a mat-button class="btn-lista">
+                              <a mat-button class="btn-lista" (click)="abrirProveedores()">
                                    <div>Clientes</div>
                               </a>
                          </mat-list-item>
@@ -37,5 +37,6 @@
      </div>
      <div class="tabs" fxFlex>
           <app-productos *ngIf="ventana=='productos'"></app-productos>
+          <app-proveedores *ngIf="ventana=='proveedores'"></app-proveedores>
      </div>
 </div>

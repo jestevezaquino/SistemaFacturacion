@@ -11,8 +11,8 @@
           <mat-card>
                <br/>
                <mat-card-header fxLayoutAlign="center">
-                 <mat-card-title>Agregar un producto</mat-card-title><br/>
-                 <mat-card-subtitle>Si se ingresa un el nombre de un producto que ya existe. Se actualizará el valor del mismo.</mat-card-subtitle>
+                 <mat-card-title fxLayoutAlign="center">Agregar un producto</mat-card-title><br/>
+                 <mat-card-subtitle>Si se ingresa un el nombre de un producto que ya existe. Se actualizará el precio del mismo.</mat-card-subtitle>
                </mat-card-header>
                <mat-card-content fxLayoutAlign="center">
                     <form [formGroup]="Form">
@@ -32,8 +32,8 @@
                               <mat-hint class="rojo" *ngIf="(this.Form.controls.precio.dirty || this.Form.controls.precio.touched) && this.Form.controls.precio.invalid">Requerido (ingrese un numero válido.)</mat-hint>
                          </mat-form-field><br/>
                          <mat-card-actions align="end">
-                              <button (click)="limpiarForm()" type="reset" mat-raised-button color="accent">LIMPIAR</button>
-                              <button (click)="openDialog()" type="button" [disabled]="this.Form.invalid" mat-raised-button color="primary"><mat-icon>add_circle_outline</mat-icon> <span> AGREGAR</span></button>
+                              <button (click)="limpiarForm()" type="reset" mat-raised-button color="primary">LIMPIAR</button>
+                              <button (click)="openDialog()" type="button" [disabled]="this.Form.invalid" mat-raised-button color="accent"><mat-icon>add_circle_outline</mat-icon> <span> AGREGAR</span></button>
                          </mat-card-actions>
                     </form>
                </mat-card-content>
