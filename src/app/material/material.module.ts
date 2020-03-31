@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const Material = [
@@ -29,7 +30,9 @@ const Material = [
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatSnackBarModule
 ]
 
 @NgModule({

@@ -11,6 +11,8 @@ import { VerProductosComponent } from './components/productos/ver-productos/ver-
 import { AgregarProductoComponent } from './components/productos/agregar-producto/agregar-producto.component';
 import { EditarProductoComponent } from './components/productos/editar-producto/editar-producto.component';
 import { EliminarProductoComponent } from './components/productos/eliminar-producto/eliminar-producto.component';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import { SnackBarComponent } from '../shared/snack-bar/snack-bar.component';
 
 @NgModule({
   declarations: [MantenimientoComponent, ProductosComponent, VerProductosComponent, AgregarProductoComponent, EditarProductoComponent, EliminarProductoComponent],
@@ -21,6 +23,7 @@ import { EliminarProductoComponent } from './components/productos/eliminar-produ
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule
-  ]
+  ],
+  entryComponents: [ConfirmDialogComponent, SnackBarComponent]
 })
 export class MantenimientoModule { }

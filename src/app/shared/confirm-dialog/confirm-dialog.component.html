@@ -1,0 +1,6 @@
+<h3 mat-dialog-title align="center"><b>ADVERTENCIA</b></h3>
+<div mat-dialog-content> {{message}} </div>
+<div mat-dialog-actions align="center">
+     <button mat-raised-button color="warn" (click)="onClickNO()">No</button>
+     <button mat-raised-button color="accent" [mat-dialog-close]="true">Sí</button>
+</div>

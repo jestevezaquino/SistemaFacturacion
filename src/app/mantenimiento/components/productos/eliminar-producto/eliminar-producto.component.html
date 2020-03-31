@@ -1,1 +1,48 @@
-<p>eliminar-producto works!</p>
+<div class="container fondo"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="0px"
+     fx.LayoutGap.xs="0px"
+>
+<div fxFlex="33.3%"></div>
+<div class="main-container" fxFlex="33.3%">
+     <div>
+          <mat-card>
+               <br/>
+               <mat-card-header fxLayoutAlign="center">
+                 <mat-card-title>Eliminar producto</mat-card-title>
+               </mat-card-header>
+               <mat-card-content fxLayoutAlign="center">
+                    <form [formGroup]="Form">
+                         <mat-form-field>
+                              <mat-label>Id del producto</mat-label>
+                              <mat-select formControlName="id">
+                                <mat-option *ngFor="let producto of productosDB" [value]="producto.productoID" (click)="actualizarDatos()">
+                                  {{producto.productoID}}
+                                </mat-option>
+                              </mat-select>
+                              <mat-hint class="rojo" *ngIf="(this.Form.controls.id.dirty || this.Form.controls.id.touched) && this.Form.controls.id.invalid">Requerido</mat-hint>
+                         </mat-form-field>
+                         <br/><br/>
+                         <mat-form-field appearance="standard">
+                              <mat-label>Nombre del producto</mat-label>
+                              <input matInput placeholder="Escriba un nombre:" [value]="nombre" disabled />
+                         </mat-form-field>
+                         <br/><br/>
+                         <mat-form-field appearance="standard">
+                              <mat-label>Precio</mat-label>
+                              <input matInput type="number" class="example-right-align" [value]="precio" disabled />
+                              <span matPrefix>RD$&nbsp;</span>
+                         </mat-form-field>
+                         <br/><br/>
+                         <mat-card-actions align="center">
+                              <button (click)="openDialog()" type="button" [disabled]="this.Form.invalid" mat-raised-button color="warn">ELIMINAR</button>
+                         </mat-card-actions>
+                    </form>
+               </mat-card-content>
+          </mat-card>
+     </div>
+</div>
+<div fxFlex="33.3%"></div>
+</div>
