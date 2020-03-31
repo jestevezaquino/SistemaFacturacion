@@ -15,16 +15,19 @@ export class EliminarProductoComponent implements OnInit {
 
   Form:FormGroup;
   productosDB:any = [];
-  nombre:string = '';
-  precio:any;
 
-  constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar, 
+  constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar,
     private MS:MantenimientoService) { }
 
   ngOnInit(): void {
     this.Form = this.fb.group({
       id : ['',[Validators.required]],
+      nombre : ['',[Validators.required, Validators.minLength(3)]],
+      precio: ['',[Validators.required]]
     });
+
+    this.Form.controls.nombre.disable();
+    this.Form.controls.precio.disable();
 
     this.MS.obtenerProductos().subscribe((datos:any)=>{
       this.productosDB = datos;
@@ -33,8 +36,6 @@ export class EliminarProductoComponent implements OnInit {
 
   limpiarForm(){
     this.Form.reset();
-    this.nombre = '';
-    this.precio = undefined;
   }
 
   openDialog():void{
@@ -60,8 +61,8 @@ export class EliminarProductoComponent implements OnInit {
     const productoID = this.Form.controls.id.value;
 
     this.MS.obtenerProductoPorID(productoID).subscribe((prod:any)=>{
-      this.nombre = prod.nombre;
-      this.precio = prod.precio;
+      this.Form.controls.nombre.setValue(prod.nombre);
+      this.Form.controls.precio.setValue(prod.precio);
     });
   }
 

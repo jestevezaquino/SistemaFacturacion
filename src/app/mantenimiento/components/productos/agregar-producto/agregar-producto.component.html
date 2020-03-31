@@ -12,7 +12,7 @@
                <br/>
                <mat-card-header fxLayoutAlign="center">
                  <mat-card-title fxLayoutAlign="center">Agregar un producto</mat-card-title><br/>
-                 <mat-card-subtitle>Si se ingresa un el nombre de un producto que ya existe. Se actualizará el precio del mismo.</mat-card-subtitle>
+                 <mat-card-subtitle class="rojo" *ngIf="noDisponible==true">Lo sentimos, el producto que trató de agregar ya se encuentra registrado en el sistema.</mat-card-subtitle>
                </mat-card-header>
                <mat-card-content fxLayoutAlign="center">
                     <form [formGroup]="Form">

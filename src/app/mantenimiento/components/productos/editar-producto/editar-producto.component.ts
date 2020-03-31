@@ -16,8 +16,9 @@ export class EditarProductoComponent implements OnInit {
   Form:FormGroup;
   producto:any = [];
   productosDB:any = [];
+  noDisponible:boolean;
 
-  constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar, 
+  constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar,
     private MS:MantenimientoService) { }
 
   ngOnInit(): void {
@@ -25,16 +26,18 @@ export class EditarProductoComponent implements OnInit {
       id : ['',[Validators.required]],
       nombre : ['',[Validators.required, Validators.minLength(3)]],
       precio: ['',[Validators.required, this.controlCantidadValidator]]
-    })
+    });
 
     this.MS.obtenerProductos().subscribe((datos:any)=>{
       this.productosDB = datos;
-    })
+    });
+
+    this.noDisponible = false;
   }
 
   //Custom validator para controlar el precio
   controlCantidadValidator(control: AbstractControl) : {[key:string]:boolean} | null {
-    
+
     if (control.value !== undefined && (isNaN(control.value) || control.value <= 0 || control.value > 999999.99)) {
       return { 'priceRange': true };
     }
@@ -43,6 +46,7 @@ export class EditarProductoComponent implements OnInit {
 
   limpiarForm(){
     this.Form.reset();
+    this.noDisponible = false;
   }
 
   openDialog():void{
@@ -52,7 +56,19 @@ export class EditarProductoComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe( res => {
       if(res){
-        this.editarProducto();
+        this.MS.obtenerProductoPorNombre(this.Form.controls.nombre.value).subscribe((data:any)=>{
+          if(data.nombre == 'NOT FOUND'){
+            this.editarProducto();
+          } else{
+            if(data.productoID == this.Form.controls.id.value)
+            {
+              this.editarProducto();
+            }else
+            {
+              this.noDisponible = true;
+            }
+          }
+        });
       }
     });
   }
@@ -61,6 +77,15 @@ export class EditarProductoComponent implements OnInit {
     this.snackbar.openFromComponent(SnackBarComponent, {
       duration: 3 * 1000,
       data: 'Se edito el producto correctamente.'
+    });
+  }
+
+  actualizarDatos(){
+    const productoID = this.Form.controls.id.value;
+
+    this.MS.obtenerProductoPorID(productoID).subscribe((prod:any)=>{
+      this.Form.controls.nombre.setValue(prod.nombre);
+      this.Form.controls.precio.setValue(prod.precio);
     });
   }
 

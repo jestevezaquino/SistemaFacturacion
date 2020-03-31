@@ -46,6 +46,10 @@ export class MantenimientoService {
     return this.http.get("http://apifacturacion.somee.com/api/mantenimiento/obtener_proveedor/"+id);
   }
 
+  obtenerProveedorPorCedula(cedula:string){
+    return this.http.get("http://apifacturacion.somee.com/api/mantenimiento/obtener_proveedor_cedula/"+cedula);
+  }
+
   obtenerProveedorPorNombre(nombre:string){
     return this.http.get("http://apifacturacion.somee.com/api/mantenimiento/obtener_proveedor_nombre/"+nombre);
   }
@@ -78,12 +82,16 @@ export class MantenimientoService {
     return this.http.get("http://apifacturacion.somee.com/api/mantenimiento/obtener_cliente/"+id);
   }
 
+  obtenerClientePorCedula(cedula:string){
+    return this.http.get("http://apifacturacion.somee.com/api/mantenimiento/obtener_cliente_cedula/"+cedula);
+  }
+
   obtenerClientePorNombre(nombre:string){
     return this.http.get("http://apifacturacion.somee.com/api/mantenimiento/obtener_cliente_nombre/"+nombre);
   }
 
   obtenerClientesPorCategoria(categoria:string){
-    return this.http.get("http://apifacturacion.somee.com/api/mantenimiento/obtener_cliente_categoria/"+categoria);
+    return this.http.get("http://apifacturacion.somee.com/api/mantenimiento/obtener_clientes_categoria/"+categoria);
   }
 
   agregarCliente(cliente:any){

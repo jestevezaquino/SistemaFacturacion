@@ -1,1 +1,63 @@
-<p>editar-proveedor works!</p>
+<div class="container fondo"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="0px"
+     fx.LayoutGap.xs="0px"
+>
+<div fxFlex="33.3%"></div>
+<div class="main-container" fxFlex="33.3%">
+     <div>
+          <mat-card>
+               <br/>
+               <mat-card-header fxLayoutAlign="center">
+                 <mat-card-title fxLayoutAlign="center">Editar un proveedor</mat-card-title><br/>
+                 <mat-card-subtitle class="rojo" *ngIf="noDisponible==true">Lo sentimos, pero ya se encuentra un registro distinto a este que posee la cédula del proveedor que trató de utilizar.</mat-card-subtitle>
+               </mat-card-header>
+               <mat-card-content fxLayoutAlign="center">
+                    <form [formGroup]="Form">
+                         <mat-form-field>
+                              <mat-label>Id del proveedor</mat-label>
+                              <mat-select formControlName="id">
+                                <mat-option *ngFor="let proveedor of proveedoresDB" [value]="proveedor.proveedorID" (click)="actualizarDatos()">
+                                  {{proveedor.proveedorID}}
+                                </mat-option>
+                              </mat-select>
+                              <mat-hint class="rojo" *ngIf="(this.Form.controls.id.dirty || this.Form.controls.id.touched) && this.Form.controls.id.invalid">Requerido</mat-hint>
+                         </mat-form-field>
+                         <br/><br/>
+                         <mat-form-field appearance="standard">
+                              <mat-label>Cédula</mat-label>
+                              <input formControlName="cedula" matInput placeholder="Ingrese una cédula sin guiones." type="text">
+                              <mat-hint class="rojo" *ngIf="(this.Form.controls.cedula.dirty || this.Form.controls.cedula.touched) && this.Form.controls.cedula.invalid">Requerido. Sin guiones, 11 caracteres númericos. Por favor, ingrese una cédula válida.</mat-hint>
+                         </mat-form-field>
+                         <br/><br/>
+                         <mat-form-field appearance="standard">
+                              <mat-label>Nombre</mat-label>
+                              <input formControlName="nombre" matInput placeholder="Escriba un nombre:" type="text">
+                              <mat-hint class="rojo" *ngIf="(this.Form.controls.nombre.dirty || this.Form.controls.nombre.touched) && this.Form.controls.nombre.invalid">Requerido (3 caracteres min.)</mat-hint>
+                         </mat-form-field>
+                         <br/><br/>
+                         <mat-form-field appearance="standard">
+                              <mat-label>Teléfono</mat-label>
+                              <input formControlName="telefono" matInput placeholder="Digite un numero de teléfono:" type="tel">
+                              <mat-hint class="rojo" *ngIf="(this.Form.controls.telefono.dirty || this.Form.controls.telefono.touched) && this.Form.controls.telefono.invalid">Requerido. Sin guiones, 10 caracteres numéricos. Por favor, ingrese un télefono válida.</mat-hint>
+                         </mat-form-field>
+                         <br/><br/>
+                         <mat-form-field appearance="standard">
+                              <mat-label>Correo electrónico</mat-label>
+                              <input formControlName="email" matInput placeholder="Escriba una dirección de correo electrónico:" type="email">
+                              <mat-hint class="rojo" *ngIf="(this.Form.controls.email.dirty || this.Form.controls.email.touched) && this.Form.controls.email.invalid">Requerido</mat-hint>
+                         </mat-form-field>
+                         <br/>
+                         <mat-card-actions align="end">
+                              <button (click)="limpiarForm()" type="reset" mat-raised-button color="primary">LIMPIAR</button>
+                              <button (click)="openDialog()" type="button" [disabled]="this.Form.invalid" mat-raised-button color="accent"><mat-icon>create</mat-icon> <span> EDITAR</span></button>
+                         </mat-card-actions>
+                    </form>
+               </mat-card-content>
+          </mat-card>
+     </div>
+</div>
+<div fxFlex="33.3%"></div>
+</div>

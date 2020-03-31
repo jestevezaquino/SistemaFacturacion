@@ -24,18 +24,18 @@
                               </mat-select>
                               <mat-hint class="rojo" *ngIf="(this.Form.controls.id.dirty || this.Form.controls.id.touched) && this.Form.controls.id.invalid">Requerido</mat-hint>
                          </mat-form-field>
-                         <br/><br/>
+                         <br/>
                          <mat-form-field appearance="standard">
                               <mat-label>Nombre del producto</mat-label>
-                              <input matInput placeholder="Escriba un nombre:" [value]="nombre" disabled />
+                              <input formControlName="nombre" matInput placeholder="Escriba un nombre:" />
                          </mat-form-field>
-                         <br/><br/>
+                         <br/>
                          <mat-form-field appearance="standard">
                               <mat-label>Precio</mat-label>
-                              <input matInput type="number" class="example-right-align" [value]="precio" disabled />
+                              <input formControlName="precio" matInput type="number" class="example-right-align" />
                               <span matPrefix>RD$&nbsp;</span>
                          </mat-form-field>
-                         <br/><br/>
+                         <br/>
                          <mat-card-actions align="center">
                               <button (click)="openDialog()" type="button" [disabled]="this.Form.invalid" mat-raised-button color="warn"><mat-icon>delete</mat-icon> <span> ELIMINAR</span></button>
                          </mat-card-actions>
