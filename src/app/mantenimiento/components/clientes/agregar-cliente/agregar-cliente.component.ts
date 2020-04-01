@@ -7,14 +7,15 @@ import { ConfirmDialogComponent } from '../../../../shared/confirm-dialog/confir
 import { SnackBarComponent } from '../../../../shared/snack-bar/snack-bar.component';
 
 @Component({
-  selector: 'app-agregar-proveedor',
-  templateUrl: './agregar-proveedor.component.html',
-  styleUrls: ['./agregar-proveedor.component.css']
+  selector: 'app-agregar-cliente',
+  templateUrl: './agregar-cliente.component.html',
+  styleUrls: ['./agregar-cliente.component.css']
 })
-export class AgregarProveedorComponent implements OnInit {
+export class AgregarClienteComponent implements OnInit {
 
   Form:FormGroup;
-  proveedor:any;
+  cliente:any;
+  selectOptions:any = [{tipo: 'Regular'}, {tipo: 'Premium'}];
   noDisponible:boolean;
 
   constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar,
@@ -25,12 +26,13 @@ export class AgregarProveedorComponent implements OnInit {
       cedula : ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11), this.controlNumericoValidator]],
       nombre : ['', [Validators.required, Validators.minLength(3)]],
       telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), this.controlNumericoValidator]],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      categoria: ['', [Validators.required]]
     });
     this.noDisponible = false;
   }
 
-  //Custom validator para controlar que la cedula y telefono tengan solo numeros
+  //Custom validator para controlar que la cédula y teléfono tengan solo numeros
   controlNumericoValidator(control: AbstractControl) : {[key:string]:boolean} | null {
 
     let test = Number(control.value);
@@ -49,13 +51,13 @@ export class AgregarProveedorComponent implements OnInit {
   openDialog():void{
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
-      data: '¿Estás seguro de querer agregar este proveedor?'
+      data: '¿Estás seguro de querer agregar este cliente?'
     });
     dialogRef.afterClosed().subscribe( res => {
       if(res){
-        this.MS.obtenerProveedorPorCedula(this.Form.controls.cedula.value).subscribe((data:any)=>{
+        this.MS.obtenerClientePorCedula(this.Form.controls.cedula.value).subscribe((data:any)=>{
           if(data.cedula == 'NOT FOUND'){
-            this.agregarProveedor();
+            this.agregarCliente();
           } else{
             this.noDisponible = true;
           }
@@ -67,26 +69,28 @@ export class AgregarProveedorComponent implements OnInit {
   openSnackBar() {
     this.snackbar.openFromComponent(SnackBarComponent, {
       duration: 3 * 1000,
-      data: 'Se agrego el proveedor correctamente.'
+      data: 'Se agrego el cliente correctamente.'
     });
   }
 
-  agregarProveedor(){
+  agregarCliente(){
 
     const cedula = this.Form.controls.cedula.value;
     const nombre = this.Form.controls.nombre.value;
     const telefono = this.Form.controls.telefono.value;
     const email = this.Form.controls.email.value;
+    const categoria = this.Form.controls.categoria.value;
 
-    this.proveedor = {
+    this.cliente = {
       cedula: cedula,
       nombre: nombre,
       telefono: telefono,
-      email: email
+      email: email,
+      categoria: categoria
     }
 
-    //Agrega un proveedor a la BD mediante el uso de la API.
-    this.MS.agregarProveedor(this.proveedor).subscribe(request=>{
+    //Agrega un cliente a la BD mediante el uso de la API.
+    this.MS.agregarCliente(this.cliente).subscribe(request=>{
       this.openSnackBar();
       this.limpiarForm();
     }, error => {

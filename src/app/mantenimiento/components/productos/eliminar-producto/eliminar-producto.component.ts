@@ -75,6 +75,6 @@ export class EliminarProductoComponent implements OnInit {
       this.ngOnInit();
     }, error => {
       console.log(error);
-    })
+    });
   }
 }

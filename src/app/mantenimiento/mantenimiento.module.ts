@@ -18,9 +18,14 @@ import { AgregarProveedorComponent } from './components/proveedores/agregar-prov
 import { EditarProveedorComponent } from './components/proveedores/editar-proveedor/editar-proveedor.component';
 import { EliminarProveedorComponent } from './components/proveedores/eliminar-proveedor/eliminar-proveedor.component';
 import { VerProveedoresComponent } from './components/proveedores/ver-proveedores/ver-proveedores.component';
+import { ClientesComponent } from './components/clientes/clientes.component';
+import { VerClientesComponent } from './components/clientes/ver-clientes/ver-clientes.component';
+import { AgregarClienteComponent } from './components/clientes/agregar-cliente/agregar-cliente.component';
+import { EditarClienteComponent } from './components/clientes/editar-cliente/editar-cliente.component';
+import { EliminarClienteComponent } from './components/clientes/eliminar-cliente/eliminar-cliente.component';
 
 @NgModule({
-  declarations: [MantenimientoComponent, ProductosComponent, VerProductosComponent, AgregarProductoComponent, EditarProductoComponent, EliminarProductoComponent, ProveedoresComponent, AgregarProveedorComponent, EditarProveedorComponent, EliminarProveedorComponent, VerProveedoresComponent],
+  declarations: [MantenimientoComponent, ProductosComponent, VerProductosComponent, AgregarProductoComponent, EditarProductoComponent, EliminarProductoComponent, ProveedoresComponent, AgregarProveedorComponent, EditarProveedorComponent, EliminarProveedorComponent, VerProveedoresComponent, ClientesComponent, VerClientesComponent, AgregarClienteComponent, EditarClienteComponent, EliminarClienteComponent],
   imports: [
     CommonModule,
     MantenimientoRoutingModule,

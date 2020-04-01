@@ -22,23 +22,23 @@ export class ProveedoresComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onTabChanged(event: MatTabChangeEvent) 
+  onTabChanged(event: MatTabChangeEvent)
   {
     if (event.index == 0)
     {
-        this.verProveedoresComponent.ngOnInit(); //Or whatever name the method is called
+      this.verProveedoresComponent.ngOnInit(); //Or whatever name the method is called
     }
     else if(event.index == 1)
     {
-        this.agregarProveedorComponent.ngOnInit(); //Or whatever name the method is called
+      this.agregarProveedorComponent.ngOnInit(); //Or whatever name the method is called
     }
     else if(event.index == 2)
     {
-        this.editarProveedorComponent.ngOnInit(); //Or whatever name the method is called
+      this.editarProveedorComponent.ngOnInit(); //Or whatever name the method is called
     }
     else if(event.index == 3)
     {
-        this.eliminarProveedorComponent.ngOnInit(); //Or whatever name the method is called
-    } 
+      this.eliminarProveedorComponent.ngOnInit(); //Or whatever name the method is called
+    }
   }
 }

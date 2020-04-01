@@ -1,0 +1,14 @@
+<mat-tab-group (selectedTabChange)="onTabChanged($event)" mat-align-tabs="center">
+  <mat-tab label="Ver clientes">
+       <app-ver-clientes></app-ver-clientes>
+  </mat-tab>
+  <mat-tab label="Agregar cliente">
+       <app-agregar-cliente></app-agregar-cliente>
+  </mat-tab>
+  <mat-tab label="Editar cliente">
+       <app-editar-cliente></app-editar-cliente>
+  </mat-tab>
+  <mat-tab label="Eliminar cliente">
+       <app-eliminar-cliente></app-eliminar-cliente>
+  </mat-tab>
+</mat-tab-group>

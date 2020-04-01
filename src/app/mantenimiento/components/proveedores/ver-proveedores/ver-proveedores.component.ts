@@ -29,6 +29,6 @@ export class VerProveedoresComponent implements OnInit {
     this.MS.obtenerProveedores().subscribe((data:any)=>{
       this.proveedores = data;
       this.dataSource.data= this.proveedores;
-    })
+    });
   }
 }

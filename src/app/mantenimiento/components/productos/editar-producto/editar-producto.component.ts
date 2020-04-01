@@ -14,7 +14,7 @@ import { SnackBarComponent } from 'src/app/shared/snack-bar/snack-bar.component'
 export class EditarProductoComponent implements OnInit {
 
   Form:FormGroup;
-  producto:any = [];
+  producto:any;
   productosDB:any = [];
   noDisponible:boolean;
 
@@ -31,6 +31,9 @@ export class EditarProductoComponent implements OnInit {
     this.MS.obtenerProductos().subscribe((datos:any)=>{
       this.productosDB = datos;
     });
+
+    this.Form.controls.nombre.disable();
+    this.Form.controls.precio.disable();
 
     this.noDisponible = false;
   }
@@ -85,7 +88,9 @@ export class EditarProductoComponent implements OnInit {
 
     this.MS.obtenerProductoPorID(productoID).subscribe((prod:any)=>{
       this.Form.controls.nombre.setValue(prod.nombre);
+      this.Form.controls.nombre.enable();
       this.Form.controls.precio.setValue(prod.precio);
+      this.Form.controls.precio.enable();
     });
   }
 
@@ -106,6 +111,6 @@ export class EditarProductoComponent implements OnInit {
       this.limpiarForm();
     }, error => {
       console.log(error);
-    })
+    });
   }
 }

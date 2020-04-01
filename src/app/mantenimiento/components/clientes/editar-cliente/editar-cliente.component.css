@@ -1,0 +1,20 @@
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] { -moz-appearance:textfield; }
+
+.fondo{
+     background-color: #F2F2F2;
+}
+
+.rojo{
+     color: red;
+}
+
+.main-container{
+     padding-top: 2rem;
+     padding-bottom: 2rem;
+}

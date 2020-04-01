@@ -11,34 +11,34 @@ import { EliminarProductoComponent } from './eliminar-producto/eliminar-producto
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent implements OnInit {
-  
+
   @ViewChild(VerProductosComponent) private verProductosComponent: VerProductosComponent;
   @ViewChild(AgregarProductoComponent) private agregarProductoComponent: AgregarProductoComponent;
-  @ViewChild(EditarProductoComponent) private editarProductoComponent: EditarProductoComponent; 
-  @ViewChild(EliminarProductoComponent) private eliminarProductoComponent: EliminarProductoComponent; 
+  @ViewChild(EditarProductoComponent) private editarProductoComponent: EditarProductoComponent;
+  @ViewChild(EliminarProductoComponent) private eliminarProductoComponent: EliminarProductoComponent;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-  
-  onTabChanged(event: MatTabChangeEvent) 
+
+  onTabChanged(event: MatTabChangeEvent)
   {
     if (event.index == 0)
     {
-        this.verProductosComponent.ngOnInit(); //Or whatever name the method is called
+      this.verProductosComponent.ngOnInit(); //Or whatever name the method is called
     }
     else if(event.index == 1)
     {
-        this.agregarProductoComponent.ngOnInit(); //Or whatever name the method is called
+      this.agregarProductoComponent.ngOnInit(); //Or whatever name the method is called
     }
     else if(event.index == 2)
     {
-        this.editarProductoComponent.ngOnInit(); //Or whatever name the method is called
+      this.editarProductoComponent.ngOnInit(); //Or whatever name the method is called
     }
     else if(event.index == 3)
     {
-        this.eliminarProductoComponent.ngOnInit(); //Or whatever name the method is called
-    } 
+      this.eliminarProductoComponent.ngOnInit(); //Or whatever name the method is called
+    }
   }
 }

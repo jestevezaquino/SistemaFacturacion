@@ -3,42 +3,44 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { MantenimientoService } from 'src/services/mantenimiento.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
-import { SnackBarComponent } from 'src/app/shared/snack-bar/snack-bar.component';
+import { ConfirmDialogComponent } from '../../../../shared/confirm-dialog/confirm-dialog.component';
+import { SnackBarComponent } from '../../../../shared/snack-bar/snack-bar.component';
 
 @Component({
-  selector: 'app-editar-proveedor',
-  templateUrl: './editar-proveedor.component.html',
-  styleUrls: ['./editar-proveedor.component.css']
+  selector: 'app-editar-cliente',
+  templateUrl: './editar-cliente.component.html',
+  styleUrls: ['./editar-cliente.component.css']
 })
-export class EditarProveedorComponent implements OnInit {
+export class EditarClienteComponent implements OnInit {
 
   Form:FormGroup;
-  proveedor:any;
-  proveedoresDB:any = [];
+  cliente:any;
+  clientesDB:any = [];
+  selectOptions:any = [{tipo: 'Regular'}, {tipo: 'Premium'}];
   noDisponible:boolean;
 
   constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar,
-    private MS:MantenimientoService) { }
+              private MS:MantenimientoService) { }
 
   ngOnInit(): void {
-
     this.Form = this.fb.group({
-      id : ['',[Validators.required]],
+      id : ['', [Validators.required]],
       cedula : ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11), this.controlNumericoValidator]],
       nombre : ['', [Validators.required, Validators.minLength(3)]],
       telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), this.controlNumericoValidator]],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      categoria: ['', [Validators.required]]
     });
 
-    this.MS.obtenerProveedores().subscribe((datos:any)=>{
-      this.proveedoresDB = datos;
+    this.MS.obtenerClientes().subscribe((datos:any)=>{
+      this.clientesDB = datos;
     });
 
     this.Form.controls.cedula.disable();
     this.Form.controls.nombre.disable();
     this.Form.controls.telefono.disable();
     this.Form.controls.email.disable();
+    this.Form.controls.categoria.disable();
 
     this.noDisponible = false;
   }
@@ -62,21 +64,15 @@ export class EditarProveedorComponent implements OnInit {
   openDialog():void{
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
-      data: '¿Estás seguro de querer editar este proveedor?'
+      data: '¿Estás seguro de querer editar este cliente?'
     });
     dialogRef.afterClosed().subscribe( res => {
       if(res){
-        this.MS.obtenerProveedorPorCedula(this.Form.controls.cedula.value).subscribe((data:any)=>{
+        this.MS.obtenerClientePorCedula(this.Form.controls.cedula.value).subscribe((data:any)=>{
           if(data.cedula == 'NOT FOUND'){
-            this.editarProveedor();
+            this.editarCliente();
           } else{
-            if(data.proveedorID == this.Form.controls.id.value)
-            {
-              this.editarProveedor();
-            }else
-            {
-              this.noDisponible = true;
-            }
+            this.noDisponible = true;
           }
         });
       }
@@ -86,42 +82,46 @@ export class EditarProveedorComponent implements OnInit {
   openSnackBar() {
     this.snackbar.openFromComponent(SnackBarComponent, {
       duration: 3 * 1000,
-      data: 'Se edito el producto correctamente.'
+      data: 'Se edito el cliente correctamente.'
     });
   }
 
   actualizarDatos(){
-    const proveedorID = this.Form.controls.id.value;
+    const clienteID = this.Form.controls.id.value;
 
-    this.MS.obtenerProveedorPorID(proveedorID).subscribe((prov:any)=>{
-      this.Form.controls.cedula.setValue(prov.cedula);
+    this.MS.obtenerClientePorID(clienteID).subscribe((clt:any)=>{
+      this.Form.controls.cedula.setValue(clt.cedula);
       this.Form.controls.cedula.enable();
-      this.Form.controls.nombre.setValue(prov.nombre);
+      this.Form.controls.nombre.setValue(clt.nombre);
       this.Form.controls.nombre.enable();
-      this.Form.controls.telefono.setValue(prov.telefono);
+      this.Form.controls.telefono.setValue(clt.telefono);
       this.Form.controls.telefono.enable();
-      this.Form.controls.email.setValue(prov.email);
+      this.Form.controls.email.setValue(clt.email);
       this.Form.controls.email.enable();
+      this.Form.controls.categoria.setValue(clt.categoria);
+      this.Form.controls.categoria.enable();
     });
   }
 
-  editarProveedor(){
-    const proveedorID = this.Form.controls.id.value;
+  editarCliente(){
+    const clienteID = this.Form.controls.id.value;
     const cedula = this.Form.controls.cedula.value;
     const nombre = this.Form.controls.nombre.value;
     const telefono = this.Form.controls.telefono.value;
     const email = this.Form.controls.email.value;
+    const categoria = this.Form.controls.categoria.value;
 
-    this.proveedor = {
-      proveedorID: proveedorID,
+    this.cliente = {
+      clienteID: clienteID,
       cedula: cedula,
       nombre: nombre,
       telefono: telefono,
-      email: email
+      email: email,
+      categoria: categoria
     }
 
-    //Editar un proveedor de la BD mediante el uso de la API.
-    this.MS.editarProveedor(this.proveedor).subscribe(request=>{
+    //Editar un cliente de la BD mediante el uso de la API.
+    this.MS.editarCliente(this.cliente).subscribe(request=>{
       this.openSnackBar();
       this.limpiarForm();
     }, error => {

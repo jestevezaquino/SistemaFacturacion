@@ -49,7 +49,7 @@ export class EliminarProveedorComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe( res => {
       if(res){
-        this.eliminarProducto();
+        this.eliminarProveedor();
       }
     });
   }
@@ -72,15 +72,15 @@ export class EliminarProveedorComponent implements OnInit {
     });
   }
 
-  eliminarProducto(){
+  eliminarProveedor(){
     const proveedorID = this.Form.controls.id.value;
-    //Eliminar un producto  la BD mediante el uso de la API.
+    //Eliminar un proveedor de la BD mediante el uso de la API.
     this.MS.eliminarProveedor(proveedorID).subscribe(request=>{
       this.openSnackBar();
       this.limpiarForm();
       this.ngOnInit();
     }, error => {
       console.log(error);
-    })
+    });
   }
 }

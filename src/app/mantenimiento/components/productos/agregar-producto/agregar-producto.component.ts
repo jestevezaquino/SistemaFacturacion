@@ -14,10 +14,10 @@ import { SnackBarComponent } from '../../../../shared/snack-bar/snack-bar.compon
 export class AgregarProductoComponent implements OnInit {
 
   Form:FormGroup;
-  producto:any = [];
+  producto:any;
   noDisponible:boolean;
 
-  constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar, 
+  constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar,
               private MS:MantenimientoService) { }
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class AgregarProductoComponent implements OnInit {
 
   //Custom validator para controlar el precio
   controlCantidadValidator(control: AbstractControl) : {[key:string]:boolean} | null {
-    
+
     if (control.value !== undefined && (isNaN(control.value) || control.value <= 0 || control.value > 999999.99)) {
       return { 'priceRange': true };
     }
@@ -83,6 +83,6 @@ export class AgregarProductoComponent implements OnInit {
       this.limpiarForm();
     }, error => {
       console.log(error);
-    })
+    });
   }
 }
