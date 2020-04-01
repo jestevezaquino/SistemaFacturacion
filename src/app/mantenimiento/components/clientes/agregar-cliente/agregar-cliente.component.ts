@@ -23,24 +23,13 @@ export class AgregarClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.Form = this.fb.group({
-      cedula : ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11), this.controlNumericoValidator]],
+      cedula : ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('[0-9]*')]],
       nombre : ['', [Validators.required, Validators.minLength(3)]],
-      telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), this.controlNumericoValidator]],
+      telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
       email: ['', [Validators.required, Validators.email]],
       categoria: ['', [Validators.required]]
     });
     this.noDisponible = false;
-  }
-
-  //Custom validator para controlar que la cédula y teléfono tengan solo numeros
-  controlNumericoValidator(control: AbstractControl) : {[key:string]:boolean} | null {
-
-    let test = Number(control.value);
-
-    if (isNaN(test)) {
-      return { 'notNumber': true };
-    }
-    return null;
   }
 
   limpiarForm(){
