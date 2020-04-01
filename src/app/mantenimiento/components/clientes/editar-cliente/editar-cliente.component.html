@@ -53,7 +53,7 @@
                          <mat-form-field>
                            <mat-label>Categoría</mat-label>
                            <mat-select formControlName="categoria">
-                             <mat-option *ngFor="let option of selectOptions" [value]="option.tipo">
+                             <mat-option *ngFor="let option of categoriaOptions" [value]="option.tipo">
                                {{option.tipo}}
                              </mat-option>
                            </mat-select>

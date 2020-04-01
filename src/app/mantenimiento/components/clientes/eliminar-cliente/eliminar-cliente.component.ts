@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MantenimientoService } from 'src/services/mantenimiento.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,7 +16,7 @@ export class EliminarClienteComponent implements OnInit {
   Form:FormGroup;
   cliente:any;
   clientesDB:any = [];
-  selectOptions:any = [{tipo: 'Regular'}, {tipo: 'Premium'}];
+  categoriaOptions:any = [{tipo: 'Regular'}, {tipo: 'Premium'}];
 
   constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar,
               private MS:MantenimientoService) { }
@@ -79,7 +79,7 @@ export class EliminarClienteComponent implements OnInit {
 
   eliminarCliente(){
     const clienteID = this.Form.controls.id.value;
-    //Eliminar un proveedor de la BD mediante el uso de la API.
+    //Eliminar un cliente de la BD mediante el uso de la API.
     this.MS.eliminarCliente(clienteID).subscribe(request=>{
       this.openSnackBar();
       this.limpiarForm();

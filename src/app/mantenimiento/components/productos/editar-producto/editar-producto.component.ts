@@ -23,9 +23,9 @@ export class EditarProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.Form = this.fb.group({
-      id : ['',[Validators.required]],
-      nombre : ['',[Validators.required, Validators.minLength(3)]],
-      precio: ['',[Validators.required, this.controlCantidadValidator]]
+      id : ['', [Validators.required]],
+      nombre : ['', [Validators.required, Validators.minLength(3)]],
+      precio: ['', [Validators.required, this.controlCantidadValidator]]
     });
 
     this.MS.obtenerProductos().subscribe((datos:any)=>{

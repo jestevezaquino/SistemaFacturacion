@@ -22,7 +22,6 @@ export class EditarProveedorComponent implements OnInit {
     private MS:MantenimientoService) { }
 
   ngOnInit(): void {
-
     this.Form = this.fb.group({
       id : ['',[Validators.required]],
       cedula : ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11), this.controlNumericoValidator]],

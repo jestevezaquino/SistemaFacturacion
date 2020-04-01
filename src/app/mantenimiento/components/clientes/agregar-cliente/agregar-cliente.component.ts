@@ -74,7 +74,6 @@ export class AgregarClienteComponent implements OnInit {
   }
 
   agregarCliente(){
-
     const cedula = this.Form.controls.cedula.value;
     const nombre = this.Form.controls.nombre.value;
     const telefono = this.Form.controls.telefono.value;

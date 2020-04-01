@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class MantenimientoComponent implements OnInit {
 
   ventana:string;
+  titulo:string;
 
   constructor() { }
 
@@ -15,13 +16,16 @@ export class MantenimientoComponent implements OnInit {
 
   abrirProductos(){
     this.ventana="productos";
+    this.titulo="CRUD Productos"
   }
 
   abrirProveedores(){
     this.ventana="proveedores";
+    this.titulo="CRUD Proveedores"
   }
 
   abrirClientes(){
     this.ventana="clientes";
+    this.titulo="CRUD Clientes"
   }
 }

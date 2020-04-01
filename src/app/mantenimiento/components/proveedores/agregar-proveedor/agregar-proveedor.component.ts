@@ -72,7 +72,6 @@ export class AgregarProveedorComponent implements OnInit {
   }
 
   agregarProveedor(){
-
     const cedula = this.Form.controls.cedula.value;
     const nombre = this.Form.controls.nombre.value;
     const telefono = this.Form.controls.telefono.value;

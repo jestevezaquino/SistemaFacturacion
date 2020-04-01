@@ -22,8 +22,8 @@ export class AgregarProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.Form = this.fb.group({
-      nombre : ['',[Validators.required, Validators.minLength(3)]],
-      precio: ['',[Validators.required, this.controlCantidadValidator]]
+      nombre : ['', [Validators.required, Validators.minLength(3)]],
+      precio: ['', [Validators.required, this.controlCantidadValidator]]
     });
     this.noDisponible = false;
   }
@@ -68,7 +68,6 @@ export class AgregarProductoComponent implements OnInit {
   }
 
   agregarProducto(){
-
     const nombre = this.Form.controls.nombre.value;
     const precio = (this.Form.controls.precio.value).toFixed(2);
 

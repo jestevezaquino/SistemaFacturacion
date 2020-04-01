@@ -1,14 +1,22 @@
 <div>
-     <mat-toolbar color="accent">
-          Módulo de mantenimiento
-     </mat-toolbar>
+  <mat-toolbar color="accent"
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="center"
+  fxLayoutGap="40px"
+  fxlayoutGap.xs="0px"
+  >
+    <span fxFlex="100%" fxLayoutAlign="center" style="padding-top: 17px;">Módulo de mantenimiento</span>
+  </mat-toolbar>
 </div>
 <div class="container"
      fxLayout
      fxLayout.xs="column"
+     fxLayout.sm="column"
+     fxLayout.md="column"
      fxLayoutAlign="center"
      fxLayoutGap="40px"
-     fx.LayoutGap.xs="0px"
+     fx.LayoutGap.xs="10px"
 >
      <div fxFlex="20%">
           <mat-drawer-container class="sidenav">
@@ -35,7 +43,15 @@
                </mat-drawer-content>
           </mat-drawer-container>
      </div>
-     <div class="tabs" fxFlex>
+     <div class="tabs" fxFlex="80%">
+          <div
+            fxLayout
+            fxLayoutAlign="center"
+          >
+            <div class="mat-typography">
+              <h2>{{titulo}}</h2>
+            </div>
+          </div>
           <app-productos *ngIf="ventana=='productos'"></app-productos>
           <app-proveedores *ngIf="ventana=='proveedores'"></app-proveedores>
           <app-clientes *ngIf="ventana=='clientes'"></app-clientes>

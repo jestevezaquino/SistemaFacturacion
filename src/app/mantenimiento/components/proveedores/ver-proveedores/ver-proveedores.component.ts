@@ -24,7 +24,7 @@ export class VerProveedoresComponent implements OnInit {
     this.obtenerProveedores();
   }
 
-  //Obtener los productos desde la API y pasarselos al DataSource.
+  //Obtener los proveedores desde la API y pasarselos al DataSource.
   obtenerProveedores(){
     this.MS.obtenerProveedores().subscribe((data:any)=>{
       this.proveedores = data;

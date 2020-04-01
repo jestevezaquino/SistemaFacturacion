@@ -24,7 +24,7 @@ export class VerClientesComponent implements OnInit {
     this.obtenerClientes();
   }
 
-  //Obtener los productos desde la API y pasarselos al DataSource.
+  //Obtener los clientes desde la API y pasarselos al DataSource.
   obtenerClientes(){
     this.MS.obtenerClientes().subscribe((data:any)=>{
       this.proveedores = data;

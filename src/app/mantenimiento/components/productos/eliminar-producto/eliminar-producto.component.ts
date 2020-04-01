@@ -21,9 +21,9 @@ export class EliminarProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.Form = this.fb.group({
-      id : ['',[Validators.required]],
-      nombre : ['',[Validators.required, Validators.minLength(3)]],
-      precio: ['',[Validators.required]]
+      id : ['', [Validators.required]],
+      nombre : ['', [Validators.required, Validators.minLength(3)]],
+      precio: ['', [Validators.required]]
     });
 
     this.Form.controls.nombre.disable();

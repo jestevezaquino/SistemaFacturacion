@@ -16,7 +16,7 @@ export class EditarClienteComponent implements OnInit {
   Form:FormGroup;
   cliente:any;
   clientesDB:any = [];
-  selectOptions:any = [{tipo: 'Regular'}, {tipo: 'Premium'}];
+  categoriaOptions:any = [{tipo: 'Regular'}, {tipo: 'Premium'}];
   noDisponible:boolean;
 
   constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar,
