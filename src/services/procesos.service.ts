@@ -27,4 +27,12 @@ export class ProcesosService {
   }
 
   /****************** Metodos Tabla Entrada ******************/
+
+  /****************** Metodos Tabla Stock ******************/
+
+  obtenerStock(){
+    return this.http.get("http://apifacturacion.somee.com/api/procesos/obtener_stock");
+  }
+
+  /****************** Metodos Tabla Stock ******************/
 }
