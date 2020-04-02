@@ -12,6 +12,7 @@ import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.
 import { SnackBarComponent } from '../shared/snack-bar/snack-bar.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ProcesosService } from 'src/services/procesos.service';
 
 
 @NgModule({
@@ -28,8 +29,8 @@ import { MatNativeDateModule } from '@angular/material/core';
   ],
   entryComponents: [ConfirmDialogComponent, SnackBarComponent],
   providers: [
-    MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ProcesosService
   ],
 })
 export class ProcesosModule { }

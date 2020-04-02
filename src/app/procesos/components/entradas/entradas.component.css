@@ -13,3 +13,11 @@ input[type=number] { -moz-appearance:textfield; }
 .carta {
   margin-top: 20px;
 }
+
+.contenedor, .tabla {
+  width: 100%;
+}
+
+.tabla{
+  margin-top: 20px;
+}
