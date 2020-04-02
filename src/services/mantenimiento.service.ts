@@ -107,4 +107,8 @@ export class MantenimientoService {
   }
 
   /****************** CRUD CLIENTES ******************/
+
+  /****************** Metodos Tabla Entrada ******************/
+
+  /****************** Metodos Tabla Entrada ******************/
 }

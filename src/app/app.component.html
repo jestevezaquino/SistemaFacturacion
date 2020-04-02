@@ -7,15 +7,15 @@
                <mat-icon>dashboard</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-               <button mat-menu-item>
+               <button mat-menu-item (click)="abrirMantenimiento()">
                     <mat-icon>build</mat-icon>
                     <span>Mantenimiento</span>
                </button>
-               <button mat-menu-item>
+               <button mat-menu-item (click)="abrirProcesos()">
                     <mat-icon>business</mat-icon>
                     <span>Procesos</span>
                </button>
-               <button mat-menu-item>
+               <button mat-menu-item (click)="abrirConsultas()">
                     <mat-icon>zoom_in</mat-icon>
                     <span>Consulta</span>
                </button>

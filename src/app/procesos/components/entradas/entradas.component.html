@@ -1,1 +1,62 @@
-<p>entradas works!</p>
+<div
+  fxLayout
+  fxLayout.xs = "column"
+  fxLayoutAlign = "center"
+  fxLayoutGap = "30px"
+  fxLayoutGap.xs = "0px"
+>
+  <div fxFlex="40%" fxLayoutAlign="center">
+    <mat-card class="carta">
+      <br/>
+      <mat-card-header fxLayoutAlign="center">
+        <mat-card-title fxLayoutAlign="center">Añadir una entrada</mat-card-title><br/>
+        <mat-card-subtitle fxLayoutAlign="center" class="rojo" *ngIf="noValido==true">Lo sentimos, esta combinación de producto-proveedor ya se encuentra en el sistema.</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content fxLayoutAlign="center">
+            <form [formGroup]="Form">
+                <mat-form-field>
+                  <mat-label>Producto</mat-label>
+                  <mat-select formControlName="producto">
+                    <mat-option *ngFor="let producto of arrayProductos" [value]="producto.productoID">
+                      {{producto.nombre}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-hint class="rojo" *ngIf="(this.Form.controls.producto.dirty || this.Form.controls.producto.touched) && this.Form.controls.producto.invalid">Requerido</mat-hint>
+                </mat-form-field>
+                <br/><br/>
+                <mat-form-field appearance="standard">
+                  <mat-label>Cantidad</mat-label>
+                  <input formControlName="cantidad" matInput placeholder="Ingrese una cantidad." type="number">
+                  <mat-hint class="rojo" *ngIf="(this.Form.controls.cantidad.dirty || this.Form.controls.cantidad.touched) && this.Form.controls.cantidad.invalid">Requerido. Ingrese un número entero positivo.</mat-hint>
+                </mat-form-field>
+                <br/><br/>
+                <mat-form-field>
+                  <mat-label>Proveedor</mat-label>
+                  <mat-select formControlName="proveedor">
+                  <mat-option *ngFor="let proveedor of arrayProveedores" [value]="proveedor.proveedorID">
+                        {{proveedor.nombre}}
+                  </mat-option>
+                  </mat-select>
+                  <mat-hint class="rojo" *ngIf="(this.Form.controls.proveedor.dirty || this.Form.controls.proveedor.touched) && this.Form.controls.proveedor.invalid">Requerido</mat-hint>
+                </mat-form-field>
+                <br/><br/>
+                <mat-form-field>
+                  <mat-label>Seleccione una fecha</mat-label>
+                  <input formControlName="fecha" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-hint class="rojo" *ngIf="(this.Form.controls.fecha.dirty || this.Form.controls.fecha.touched) && this.Form.controls.fecha.invalid">Requerido.</mat-hint>
+                </mat-form-field>
+                <br/><br/>
+                <mat-card-actions align="end">
+                  <button type="reset" mat-raised-button color="primary">LIMPIAR</button>
+                  <button type="button" [disabled]="this.Form.invalid" mat-raised-button color="accent"><mat-icon>add_circle_outline</mat-icon> <span> AGREGAR</span></button>
+                </mat-card-actions>
+            </form>
+        </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="60%" fxLayoutAlign="center">
+
+  </div>
+</div>

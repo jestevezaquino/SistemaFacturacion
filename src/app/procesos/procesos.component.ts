@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProcesosComponent implements OnInit {
 
+  proceso:string;
+
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
+  abrirEntradas(){
+    this.proceso = 'entradas';
+  }
+
+  abrirStock(){
+    this.proceso = 'stock';
+  }
+
+  abrirFacturacion(){
+    this.proceso = 'facturacion';
+  }
 }

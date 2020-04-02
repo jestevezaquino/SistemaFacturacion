@@ -8,6 +8,10 @@ import { ProcesosComponent } from './procesos.component';
 import { EntradasComponent } from './components/entradas/entradas.component';
 import { StockComponent } from './components/stock/stock.component';
 import { FacturacionComponent } from './components/facturacion/facturacion.component';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import { SnackBarComponent } from '../shared/snack-bar/snack-bar.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -15,7 +19,17 @@ import { FacturacionComponent } from './components/facturacion/facturacion.compo
   imports: [
     CommonModule,
     ProcesosRoutingModule,
-    MaterialModule
-  ]
+    MaterialModule,
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  entryComponents: [ConfirmDialogComponent, SnackBarComponent],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
 })
 export class ProcesosModule { }
