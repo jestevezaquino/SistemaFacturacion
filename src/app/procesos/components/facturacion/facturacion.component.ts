@@ -13,7 +13,7 @@ import { ProcesosService } from 'src/services/procesos.service';
 export class FacturacionComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  displayedColumns: string[] = ['Producto', 'Precio', 'Cantidad', 'Opciones'];
+  displayedColumns: string[] = ['Producto', 'Precio', 'Cantidad', 'Importe', 'Opciones'];
   dataSource:any;
 
   FormCliente:FormGroup;
@@ -22,9 +22,11 @@ export class FacturacionComponent implements OnInit {
   Form:FormGroup;
   control:boolean;
   ProductoStock:any = [];
+  respaldoProductoStock:any = [];
 
   carritoCompras:any = [];
   noDisponible:boolean;
+  contador:number = 0;
 
   constructor(private fb:FormBuilder, private MS:MantenimientoService, private PS:ProcesosService) { }
 
@@ -54,17 +56,10 @@ export class FacturacionComponent implements OnInit {
     this.noDisponible = true;
   }
 
-  agregarAlCarrito()
-  {
-    this.dataSource.data= this.carritoCompras;
-    this.noDisponible = false;
-  }
-
   turnOnFormFactura(){
     this.FormCliente.controls.cliente.disable();
     (document.getElementById('btnCliente') as HTMLInputElement).disabled = true;
     this.Form.controls.cantidad.enable();
-    (document.getElementById('btnF') as HTMLInputElement).disabled = false;
 
     this.PS.obtenerStock().subscribe((data)=>{
       this.ProductoStock = data;
@@ -79,13 +74,57 @@ export class FacturacionComponent implements OnInit {
     (document.getElementById('btnF') as HTMLInputElement).disabled = true;
     this.FormCliente.controls.cliente.enable();
     (document.getElementById('btnCliente') as HTMLInputElement).disabled = false;
-    this.ProductoStock = [];
     this.control = false;
+    this.ProductoStock = [];
+    this.dataSource = new MatTableDataSource();
   }
 
   actualizarFormTabla(idProducto:number){
     this.MS.obtenerProductoPorID(idProducto).subscribe((data:any)=>{
       this.Form.controls.precio.setValue(data.precio);
     });
+  }
+
+  agregarAlCarrito()
+  {
+    const productoID = this.Form.controls.producto.value;
+    const precio = this.Form.controls.precio.value;
+    const cantidad = this.Form.controls.cantidad.value;
+    this.contador = this.contador+1;
+
+    this.MS.obtenerProductoPorID(productoID).subscribe((data:any)=>{
+      this.carritoCompras.push({
+        producto: data.nombre,
+        precio: precio,
+        cantidad: cantidad,
+        importe: cantidad*precio
+      });
+      this.dataSource.data = this.carritoCompras;
+
+      for(let e in this.ProductoStock){
+        if(this.ProductoStock[e].producto.nombre == data.nombre){
+          this.respaldoProductoStock.push(this.ProductoStock[e]);
+          this.ProductoStock.splice(e, 1);
+        }
+      }
+    });
+    this.Form.reset();
+    this.noDisponible = false;;
+  }
+
+  eliminarItem(prod:string){
+    for(let e in this.carritoCompras){
+      if(this.carritoCompras[e].producto == prod){
+        this.carritoCompras.splice(e, 1);
+      }
+    }
+
+    for(let e in this.respaldoProductoStock){
+      if(this.respaldoProductoStock[e].producto.nombre == prod){
+        this.ProductoStock.push(this.respaldoProductoStock[e]);
+        this.respaldoProductoStock.splice(e, 1);
+      }
+    }
+    this.dataSource.data = this.carritoCompras;
   }
 }
