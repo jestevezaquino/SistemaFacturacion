@@ -1,0 +1,51 @@
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] { -moz-appearance:textfield; }
+
+.carta-cliente{
+  height: 150px;
+  margin-top: 25px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.carta-facturar{
+  height: 60px;
+  margin-top: 25px;
+  margin-right: 5px;
+  padding-top: 0.5rem;
+}
+
+form{
+  height: 50px;
+}
+
+.campo-formulario{
+  margin-left: 0.7rem;
+}
+
+.rojo{
+  color: red;
+}
+
+.tabla{
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 99.4%;
+}
+
+.boton{
+  margin-left: 40px;
+}
+
+.agregarAFactura{
+  margin-top: 1rem;
+}
+
+.indicador{
+  padding-left: 1rem;
+}
