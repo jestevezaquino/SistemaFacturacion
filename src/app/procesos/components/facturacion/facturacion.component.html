@@ -50,6 +50,10 @@
           <input formControlName="precio" matInput placeholder="Precio del producto." type="number">
         </mat-form-field>
         <mat-form-field class="campo-formulario" appearance="standard">
+          <mat-label>Disponibles en Stock</mat-label>
+          <input formControlName="disponible" matInput placeholder="Cantidad disponible." type="number">
+        </mat-form-field>
+        <mat-form-field class="campo-formulario" appearance="standard">
           <mat-label>Cantidad</mat-label>
           <input formControlName="cantidad" matInput placeholder="Ingrese una cantidad." type="number">
           <mat-hint class="rojo" *ngIf="(this.Form.controls.cantidad.dirty || this.Form.controls.cantidad.touched) && this.Form.controls.cantidad.invalid">Requerido. Número entero.</mat-hint>

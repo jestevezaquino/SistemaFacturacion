@@ -43,10 +43,12 @@ export class FacturacionComponent implements OnInit {
     this.Form = this.fb.group({
       producto: ['', [Validators.required]],
       precio: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      disponible: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       cantidad: ['', [Validators.required, Validators.pattern('[0-9]*')]]
     });
 
     this.Form.controls.precio.disable();
+    this.Form.controls.disponible.disable();
     this.Form.controls.cantidad.disable();
     (document.getElementById('btnF') as HTMLInputElement).disabled = true;
     this.control = false;
@@ -80,36 +82,47 @@ export class FacturacionComponent implements OnInit {
   }
 
   actualizarFormTabla(idProducto:number){
-    this.MS.obtenerProductoPorID(idProducto).subscribe((data:any)=>{
-      this.Form.controls.precio.setValue(data.precio);
-    });
+    for(let e in this.ProductoStock){
+      if(this.ProductoStock[e].productoID == idProducto){
+        this.Form.controls.precio.setValue(this.ProductoStock[e].producto.precio);
+        this.Form.controls.disponible.setValue(this.ProductoStock[e].cantidad);
+      }
+    }
   }
 
   agregarAlCarrito()
   {
-    const productoID = this.Form.controls.producto.value;
-    const precio = this.Form.controls.precio.value;
-    const cantidad = this.Form.controls.cantidad.value;
-    this.contador = this.contador+1;
+    if(this.Form.controls.disponible.value < this.Form.controls.cantidad.value)
+    {
+      this.control = false;
+    }
+    else
+    {
+      const productoID = this.Form.controls.producto.value;
+      const precio = this.Form.controls.precio.value;
+      const cantidad = this.Form.controls.cantidad.value;
+      this.contador = this.contador+1;
 
-    this.MS.obtenerProductoPorID(productoID).subscribe((data:any)=>{
-      this.carritoCompras.push({
-        producto: data.nombre,
-        precio: precio,
-        cantidad: cantidad,
-        importe: cantidad*precio
-      });
-      this.dataSource.data = this.carritoCompras;
+      this.MS.obtenerProductoPorID(productoID).subscribe((data:any)=>{
+        this.carritoCompras.push({
+          producto: data.nombre,
+          precio: precio,
+          cantidad: cantidad,
+          importe: cantidad*precio
+        });
+        this.dataSource.data = this.carritoCompras;
 
-      for(let e in this.ProductoStock){
-        if(this.ProductoStock[e].producto.nombre == data.nombre){
-          this.respaldoProductoStock.push(this.ProductoStock[e]);
-          this.ProductoStock.splice(e, 1);
+        for(let e in this.ProductoStock){
+          if(this.ProductoStock[e].producto.nombre == data.nombre){
+            this.respaldoProductoStock.push(this.ProductoStock[e]);
+            this.ProductoStock.splice(e, 1);
+          }
         }
-      }
-    });
-    this.Form.reset();
-    this.noDisponible = false;;
+      });
+      this.Form.reset();
+      this.noDisponible = false;
+      this.control = true;
+    }
   }
 
   eliminarItem(prod:string){
