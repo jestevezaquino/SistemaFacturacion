@@ -34,5 +34,17 @@ export class ProcesosService {
     return this.http.get("http://apifacturacion.somee.com/api/procesos/obtener_stock");
   }
 
+  editarStock(stock:any){
+    return this.http.put("http://apifacturacion.somee.com/api/procesos/editar_stock", stock);
+  }
+
   /****************** Metodos Tabla Stock ******************/
+
+  /****************** Metodos Facturacion ******************/
+
+  agregarFactura(factura:any){
+    return this.http.post("http://apifacturacion.somee.com/api/procesos/agregar_factura", factura);
+  }
+
+  /****************** Metodos Facturacion ******************/
 }

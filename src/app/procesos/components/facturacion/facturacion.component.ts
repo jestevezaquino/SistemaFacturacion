@@ -6,6 +6,8 @@ import { MantenimientoService } from 'src/services/mantenimiento.service';
 import { ProcesosService } from 'src/services/procesos.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarComponent } from '../../../shared/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-facturacion',
@@ -31,7 +33,7 @@ export class FacturacionComponent implements OnInit {
 
   datosFactura = { sumaImporte: 0, descuento: 0, subtotal: 0, itbis: 0, total: 0 }
 
-  constructor(private fb:FormBuilder, public dialog:MatDialog, private MS:MantenimientoService, private PS:ProcesosService) { }
+  constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar, private MS:MantenimientoService, private PS:ProcesosService) { }
 
   ngOnInit(): void {
     this.MS.obtenerClientes().subscribe((data)=>{
@@ -128,6 +130,7 @@ export class FacturacionComponent implements OnInit {
 
       this.MS.obtenerProductoPorID(productoID).subscribe((data:any)=>{
         this.carritoCompras.push({
+          productoID: productoID,
           producto: data.nombre,
           precio: precio,
           cantidad: cantidad,
@@ -201,9 +204,55 @@ export class FacturacionComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe( res => {
       if(res){
+        this.actualizarStock();
+        this.agregarUnaFactura();
+        this.openSnackBar();
         this.descartarFactura();
       }
     });
   }
 
+  openSnackBar() {
+    this.snackbar.openFromComponent(SnackBarComponent, {
+      duration: 3 * 1000,
+      data: 'Se ha generado la factura exitosamente.'
+    });
+  }
+
+  actualizarStock(){
+    for(let e in this.carritoCompras){
+      let stock = {
+        productoID: this.carritoCompras[e].productoID,
+        cantidad: this.carritoCompras[e].cantidad
+      }
+
+      this.PS.editarStock(stock).subscribe((data)=>{});
+    }
+  }
+
+  agregarUnaFactura(){
+
+    let descripcion = "Se facturo: ";
+    let cantProductos = 0;
+
+    for(let e in this.carritoCompras){
+      descripcion += ""+this.carritoCompras[e].cantidad +" "+ this.carritoCompras[e].producto+", ";
+      cantProductos += this.carritoCompras[e].cantidad;
+    }
+
+    descripcion = descripcion.substring(0, descripcion.length-2);
+    descripcion += ".";
+
+    let Factura = {
+      ClienteID: this.FormCliente.controls.cliente.value,
+	    Descripcion: descripcion,
+	    CantidadProductos: cantProductos,
+	    SubTotal: this.datosFactura.subtotal,
+	    DescuentoPorciento: this.datosFactura.descuento,
+	    Total: this.datosFactura.total,
+	    Fecha: (new Date())
+    }
+
+    this.PS.agregarFactura(Factura).subscribe((request)=>{});
+  }
 }
