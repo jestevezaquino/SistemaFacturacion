@@ -17,7 +17,7 @@
           <mat-form-field appearance="standard">
             <mat-label>Clientes</mat-label>
             <mat-select formControlName="cliente" >
-              <mat-option *ngFor="let cliente of arrayClientes" [value]="cliente.clienteID">
+              <mat-option *ngFor="let cliente of arrayClientes" [value]="cliente.clienteID" (click)="obtenerTipoCliente(cliente.categoria)">
                 {{cliente.nombre}}
               </mat-option>
             </mat-select>
@@ -26,7 +26,7 @@
         </form>
         <mat-card-actions align="end">
           <button id="btnCliente" (click)="turnOnFormFactura()" class="boton" type="button" [disabled]="this.FormCliente.invalid" mat-raised-button color="primary"><mat-icon>add_circle_outline</mat-icon></button>
-          <button (click)="cambiarCliente()" class="boton2" type="reset" mat-raised-button color="warn"><mat-icon>delete</mat-icon></button>
+          <button (click)="openDialogEliminarCliente()" class="boton2" type="reset" mat-raised-button color="warn"><mat-icon>delete</mat-icon></button>
         </mat-card-actions>
       </mat-card-content>
     </mat-card>
@@ -104,6 +104,20 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+    <div>
+      <mat-card fxFlexAlign="start">
+        <mat-card-content *ngIf="carritoCompras.length>0">
+          <span mat-subheader><b>Suma importe:</b>&nbsp;&nbsp; RD$ {{datosFactura.sumaImporte}}</span><br/>
+          <span mat-subheader><b>Descuento:</b>&nbsp;&nbsp; RD$ {{datosFactura.sumaImporte * (datosFactura.descuento/100)}} <b>({{datosFactura.descuento}}%)</b></span><br/>
+          <span mat-subheader><b>Subtotal:</b>&nbsp;&nbsp; RD$ {{datosFactura.subtotal}}</span><br/>
+          <span mat-subheader><b>ITBIS:</b>&nbsp;&nbsp; RD$ {{datosFactura.itbis}} <b>(18%)</b></span><br/>
+          <span mat-subheader><b>Total:</b>&nbsp;&nbsp; RD$ {{datosFactura.total}}</span><br/>
+        </mat-card-content>
+        <mat-card-actions *ngIf="carritoCompras.length>0">
+          <button (click)="openDialogFacturar()" class="boton" type="button" mat-raised-button color="primary">Facturar</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </div>

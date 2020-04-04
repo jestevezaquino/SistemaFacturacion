@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MantenimientoService } from 'src/services/mantenimiento.service';
 import { ProcesosService } from 'src/services/procesos.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-facturacion',
@@ -26,12 +28,12 @@ export class FacturacionComponent implements OnInit {
 
   carritoCompras:any = [];
   noDisponible:boolean;
-  contador:number = 0;
 
-  constructor(private fb:FormBuilder, private MS:MantenimientoService, private PS:ProcesosService) { }
+  datosFactura = { sumaImporte: 0, descuento: 0, subtotal: 0, itbis: 0, total: 0 }
+
+  constructor(private fb:FormBuilder, public dialog:MatDialog, private MS:MantenimientoService, private PS:ProcesosService) { }
 
   ngOnInit(): void {
-
     this.MS.obtenerClientes().subscribe((data)=>{
       this.arrayClientes = data;
     });
@@ -58,6 +60,14 @@ export class FacturacionComponent implements OnInit {
     this.noDisponible = true;
   }
 
+  obtenerTipoCliente(categoria:string){
+    if(categoria == 'Premium'){
+      this.datosFactura.descuento = 5;
+    } else{
+      this.datosFactura.descuento = 0;
+    }
+  }
+
   turnOnFormFactura(){
     this.FormCliente.controls.cliente.disable();
     (document.getElementById('btnCliente') as HTMLInputElement).disabled = true;
@@ -69,7 +79,19 @@ export class FacturacionComponent implements OnInit {
     });
   }
 
-  cambiarCliente(){
+  openDialogEliminarCliente():void{
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: 'Al aceptar estará eliminando toda la configuracion y cambios en la factura del cliente actual. ¿Deseas continuar de todas formas?'
+    });
+    dialogRef.afterClosed().subscribe( res => {
+      if(res){
+        this.descartarFactura();
+      }
+    });
+  }
+
+  descartarFactura(){
     this.FormCliente.reset();
     this.Form.reset();
     this.Form.controls.cantidad.disable();
@@ -78,6 +100,8 @@ export class FacturacionComponent implements OnInit {
     (document.getElementById('btnCliente') as HTMLInputElement).disabled = false;
     this.control = false;
     this.ProductoStock = [];
+    this.carritoCompras = [];
+    this.datosFactura = { sumaImporte: 0, descuento: 0, subtotal: 0, itbis: 0, total: 0 }
     this.dataSource = new MatTableDataSource();
   }
 
@@ -101,7 +125,6 @@ export class FacturacionComponent implements OnInit {
       const productoID = this.Form.controls.producto.value;
       const precio = this.Form.controls.precio.value;
       const cantidad = this.Form.controls.cantidad.value;
-      this.contador = this.contador+1;
 
       this.MS.obtenerProductoPorID(productoID).subscribe((data:any)=>{
         this.carritoCompras.push({
@@ -118,7 +141,22 @@ export class FacturacionComponent implements OnInit {
             this.ProductoStock.splice(e, 1);
           }
         }
+
+        this.datosFactura.sumaImporte += Number((cantidad*precio).toFixed(2));
+        if(this.datosFactura.descuento == 5)
+        {
+          this.datosFactura.subtotal = Number((this.datosFactura.sumaImporte - (this.datosFactura.sumaImporte*0.05)).toFixed(2));
+          this.datosFactura.itbis = Number((this.datosFactura.subtotal * 0.18).toFixed(2));
+          this.datosFactura.total = Number((this.datosFactura.subtotal + this.datosFactura.itbis).toFixed(2));
+        }
+        else
+        {
+          this.datosFactura.subtotal = Number((this.datosFactura.sumaImporte).toFixed(2));
+          this.datosFactura.itbis = Number((this.datosFactura.subtotal * 0.18).toFixed(2));
+          this.datosFactura.total = Number((this.datosFactura.subtotal + this.datosFactura.itbis).toFixed(2));
+        }
       });
+
       this.Form.reset();
       this.noDisponible = false;
       this.control = true;
@@ -128,6 +166,21 @@ export class FacturacionComponent implements OnInit {
   eliminarItem(prod:string){
     for(let e in this.carritoCompras){
       if(this.carritoCompras[e].producto == prod){
+
+        this.datosFactura.sumaImporte -= Number((this.carritoCompras[e].cantidad*this.carritoCompras[e].precio).toFixed(2));
+        if(this.datosFactura.descuento == 5)
+        {
+          this.datosFactura.subtotal = Number((this.datosFactura.sumaImporte - (this.datosFactura.sumaImporte*0.05)).toFixed(2));
+          this.datosFactura.itbis = Number((this.datosFactura.subtotal * 0.18).toFixed(2));
+          this.datosFactura.total = Number((this.datosFactura.subtotal + this.datosFactura.itbis).toFixed(2));
+        }
+        else
+        {
+          this.datosFactura.subtotal = Number((this.datosFactura.sumaImporte).toFixed(2));
+          this.datosFactura.itbis = Number((this.datosFactura.subtotal * 0.18).toFixed(2));
+          this.datosFactura.total = Number((this.datosFactura.subtotal + this.datosFactura.itbis).toFixed(2));
+        }
+
         this.carritoCompras.splice(e, 1);
       }
     }
@@ -140,4 +193,17 @@ export class FacturacionComponent implements OnInit {
     }
     this.dataSource.data = this.carritoCompras;
   }
+
+  openDialogFacturar():void{
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: '¿Está seguro de generar una factura con la configuracion actual?'
+    });
+    dialogRef.afterClosed().subscribe( res => {
+      if(res){
+        this.descartarFactura();
+      }
+    });
+  }
+
 }
