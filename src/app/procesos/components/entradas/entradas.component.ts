@@ -68,8 +68,8 @@ export class EntradasComponent implements OnInit {
 
   openDialog(id:number):void{
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '350px',
-      data: '¿Estás seguro de querer eliminar esta entrada?'
+      width: '500px',
+      data: 'Al borrar esta entrada, estaras eliminando automaticamente la cantidad de este producto en la tabla stock y/o eliminandolo si cantidad de producto en entrada > cantidad de producto en stock. ¿Estás seguro de querer eliminar esta entrada?'
     });
     dialogRef.afterClosed().subscribe( res => {
       if(res){
@@ -99,10 +99,7 @@ export class EntradasComponent implements OnInit {
     const fecha = this.Form.controls.fecha.value;
 
     this.PS.obtenerEntradasProductoProveedor(productoID, proveedorID).subscribe((data)=>{
-      let resultados:any = data;
-      if(resultados.entradaID == -1){
-
-        let entrada:any =
+      let entrada:any =
         {
           productoID: productoID,
           cantidad: cantidad,
@@ -115,9 +112,6 @@ export class EntradasComponent implements OnInit {
           this.limpiar();
           this.ngOnInit();
         });
-      } else{
-        this.noValido = true;
-      }
     })
   }
 

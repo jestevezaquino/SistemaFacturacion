@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarComponent } from '../../../shared/snack-bar/snack-bar.component';
+
+import * as html2pdf from 'html2pdf.js'
 
 @Component({
   selector: 'app-facturacion',
@@ -22,6 +24,7 @@ export class FacturacionComponent implements OnInit {
 
   FormCliente:FormGroup;
   arrayClientes:any = [];
+  nombreCliente:string;
 
   Form:FormGroup;
   control:boolean;
@@ -62,8 +65,9 @@ export class FacturacionComponent implements OnInit {
     this.noDisponible = true;
   }
 
-  obtenerTipoCliente(categoria:string){
-    if(categoria == 'Premium'){
+  obtenerInfoCliente(cliente){
+    this.nombreCliente = cliente.nombre;
+    if(cliente.categoria == 'Premium'){
       this.datosFactura.descuento = 5;
     } else{
       this.datosFactura.descuento = 0;
@@ -205,9 +209,9 @@ export class FacturacionComponent implements OnInit {
     dialogRef.afterClosed().subscribe( res => {
       if(res){
         this.actualizarStock();
+        this.imprimirFactura();
         this.agregarUnaFactura();
         this.openSnackBar();
-        this.descartarFactura();
       }
     });
   }
@@ -228,6 +232,22 @@ export class FacturacionComponent implements OnInit {
 
       this.PS.editarStock(stock).subscribe((data)=>{});
     }
+  }
+
+  imprimirFactura(){
+    const options = {
+      name: 'factura.js',
+      image: {type:'jpeg'},
+      html2canvas: {},
+      jsPDF: {orientation: 'landscape'}
+    }
+
+    const element:Element = document.getElementById('imprimir');
+
+    html2pdf()
+      .from(element)
+      .set(options)
+      .save()
   }
 
   agregarUnaFactura(){
