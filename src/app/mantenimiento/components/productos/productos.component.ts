@@ -1,9 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { VerProductosComponent } from './ver-productos/ver-productos.component';
 import { AgregarProductoComponent } from './agregar-producto/agregar-producto.component';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { EditarProductoComponent } from './editar-producto/editar-producto.component';
 import { EliminarProductoComponent } from './eliminar-producto/eliminar-producto.component';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-productos',

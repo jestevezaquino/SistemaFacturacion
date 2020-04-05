@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MaterialModule } from '../shared/material/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConsultasRoutingModule } from './consultas-routing.module';
 import { ConsultasComponent } from './consultas.component';
 import { ProductosComponent } from './components/productos/productos.component';
@@ -14,7 +16,9 @@ import { FacturacionesComponent } from './components/facturaciones/facturaciones
   declarations: [ConsultasComponent, ProductosComponent, ClientesComponent, ProveedoresComponent, EntradasComponent, FacturacionesComponent],
   imports: [
     CommonModule,
-    ConsultasRoutingModule
+    ConsultasRoutingModule,
+    MaterialModule,
+    FlexLayoutModule
   ]
 })
-export class ConsultasModule { }
+export class ConsultasModule {}

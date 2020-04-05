@@ -1,1 +1,29 @@
-<p>consultas works!</p>
+<div>
+  <mat-toolbar color="accent"
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="center"
+  fxLayoutGap="40px"
+  fxlayoutGap.xs="0px"
+  >
+    <span fxFlex="100%" fxLayoutAlign="center" style="padding-top: 17px;">Módulo de consultas</span>
+  </mat-toolbar>
+
+  <mat-tab-group class="tabulador" (selectedTabChange)="onTabChanged($event)" mat-align-tabs="center">
+    <mat-tab label="Consultar productos">
+      <app-productos></app-productos>
+    </mat-tab>
+    <mat-tab label="Consultar clientes">
+      <app-clientes></app-clientes>
+    </mat-tab>
+    <mat-tab label="Consultar proveedores">
+      <app-proveedores></app-proveedores>
+    </mat-tab>
+    <mat-tab label="Consultar entradas">
+      <app-entradas></app-entradas>
+    </mat-tab>
+    <mat-tab label="Consultar facturas">
+      <app-facturaciones></app-facturaciones>
+ </mat-tab>
+</mat-tab-group>
+</div>
