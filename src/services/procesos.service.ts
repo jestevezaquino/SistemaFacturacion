@@ -46,5 +46,9 @@ export class ProcesosService {
     return this.http.post("http://apifacturacion.somee.com/api/procesos/agregar_factura", factura);
   }
 
+  obtenerFacturas(){
+    return this.http.get("http://apifacturacion.somee.com/api/procesos/obtener_facturas");
+  }
+
   /****************** Metodos Facturacion ******************/
 }

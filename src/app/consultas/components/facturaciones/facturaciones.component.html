@@ -1,1 +1,102 @@
-<p>facturaciones works!</p>
+<div
+  id="imprimir"
+  fxLayout
+  fxLayout.xs = "column"
+  fxLayoutAlign = "center"
+  fxLayoutGap = "30px"
+  fxLayoutGap.xs = "0px"
+>
+  <div fxFlex="80%">
+    <div class="contenedor">
+      <mat-form-field class="filtro">
+        <mat-label>Filtrar por:</mat-label>
+        <form [formGroup]="form" class="formulario">
+          <mat-radio-group (change)="setFilterColumn($event)" formControlName="opcion" aria-label="Select an option">
+            <mat-radio-button value="fecha">Fecha</mat-radio-button>&nbsp;&nbsp;
+            <mat-radio-button value="cliente">Cliente</mat-radio-button>
+          </mat-radio-group>
+        </form><br/>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Nota: Joan Manuel">
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table class="tabla" mat-table [dataSource]="dataSource" matSort>
+
+          <!-- Columna ID -->
+        <ng-container matColumnDef="Id">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let factura"> {{factura.facturaID}} </td>
+        </ng-container>
+
+        <!-- Columna Cliente -->
+        <ng-container matColumnDef="Cliente">
+         <th mat-header-cell *matHeaderCellDef>  Cliente </th>
+         <td mat-cell *matCellDef="let factura"> {{factura.cliente.nombre}} </td>
+        </ng-container>
+
+        <!-- Columna Descripcion -->
+        <ng-container matColumnDef="Descripcion">
+         <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+         <td mat-cell *matCellDef="let factura"> {{factura.descripcion}} </td>
+        </ng-container>
+
+        <!-- Columna Cantidad Vendida -->
+        <ng-container matColumnDef="CantidadVendida">
+          <th mat-header-cell *matHeaderCellDef> Productos vendidos </th>
+          <td mat-cell *matCellDef="let factura"> {{factura.cantidadProductos}} </td>
+        </ng-container>
+
+        <!-- Columna Subtotal -->
+        <ng-container matColumnDef="Subtotal">
+         <th mat-header-cell *matHeaderCellDef> Subtotal </th>
+         <td mat-cell *matCellDef="let factura"> {{factura.subTotal}} </td>
+        </ng-container>
+
+        <!-- Columna Descuento -->
+        <ng-container matColumnDef="Descuento">
+          <th mat-header-cell *matHeaderCellDef> Descuento </th>
+          <td mat-cell *matCellDef="let factura"> {{factura.descuentoPorciento}} </td>
+         </ng-container>
+
+         <!-- Columna Fecha -->
+        <ng-container matColumnDef="Total">
+          <th mat-header-cell *matHeaderCellDef> Total </th>
+          <td mat-cell *matCellDef="let factura"> {{factura.total}} </td>
+         </ng-container>
+
+         <!-- Columna Fecha -->
+        <ng-container matColumnDef="Fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let factura"> {{factura.fecha}} </td>
+         </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let producto; columns: displayedColumns;">
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="20%" fxFlexAlign="center">
+    <div>
+      <div class="mat-typography">
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.conteo.value == true)"><strong>Conteo:</strong> {{stats.conteo}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.sumatoria.value == true)"><strong>Sumatoria (Total):</strong> {{stats.sumatoria}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.promedio.value == true)"><strong>Promedio (Total):</strong> {{stats.promedio}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.max.value == true)"><strong>Máximo (Total):</strong> {{stats.max}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.min.value == true)"><strong>Mínimo (Total):</strong> {{stats.min}}</h3>
+      </div>
+      <form [formGroup]="opcionesForm">
+        <mat-checkbox formControlName="conteo">Incluir conteo en la busqueda.</mat-checkbox>
+        <mat-checkbox formControlName="sumatoria">Incluir sumatoria en la busqueda.</mat-checkbox>
+        <mat-checkbox formControlName="promedio">Incluir promedio en la busqueda.</mat-checkbox>
+        <mat-checkbox formControlName="max">Incluir máximo en la busqueda.</mat-checkbox>
+        <mat-checkbox formControlName="min">Incluir minimo en la busqueda.</mat-checkbox>
+      </form>
+      <br/>
+      <button mat-raised-button color="warn" (click)="imprimirConsulta()">PDF</button>
+    </div>
+  </div>
+</div>

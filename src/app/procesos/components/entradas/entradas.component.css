@@ -12,6 +12,7 @@ input[type=number] { -moz-appearance:textfield; }
 
 .carta {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .contenedor, .tabla {

@@ -67,8 +67,8 @@
     <div>
       <div class="mat-typography">
         <h3 *ngIf="(stats!=null && this.opcionesForm.controls.conteo.value == true)"><strong>Conteo:</strong> {{stats.conteo}}</h3>
-        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.sumatoria.value == true)"><strong>Sumatoria:</strong> {{stats.sumatoria}}</h3>
-        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.promedio.value == true)"><strong>Promedio:</strong> {{stats.promedio}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.sumatoria.value == true)"><strong>Sumatoria (Cantidad):</strong> {{stats.sumatoria}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.promedio.value == true)"><strong>Promedio (Cantidad):</strong> {{stats.promedio}}</h3>
       </div>
       <form [formGroup]="opcionesForm">
         <mat-checkbox formControlName="conteo">Incluir conteo en la busqueda.</mat-checkbox>
