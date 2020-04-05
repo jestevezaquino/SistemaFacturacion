@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MantenimientoService } from 'src/services/mantenimiento.service';
 
+import * as html2pdf from 'html2pdf.js';
+
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
@@ -43,5 +45,21 @@ export class ProductosComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  imprimirConsulta(){
+    const options = {
+      name: 'consulta.js',
+      image: {type:'jpeg'},
+      html2canvas: {},
+      jsPDF: {orientation: 'landscape'}
+    }
+
+    const element:Element = document.getElementById('imprimir');
+
+    html2pdf()
+      .from(element)
+      .set(options)
+      .save()
   }
 }

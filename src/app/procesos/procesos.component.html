@@ -1,37 +1,23 @@
 <div>
   <mat-toolbar color="accent"
   fxLayout
-  fxLayout.xs="row"
-  fxLayoutAlign="center"
-  fxLayoutGap="0px"
-  fxlayoutGap.xs="0px"
-  >
-
-    <div fxFlex="33.3%"></div>
-    <div fxFlex="33.3%" fxLayoutAlign="center" style="padding-top: 25px;">
-      Módulo de procesos
-    </div>
-    <div fxFlex="33.3%"></div>
-  </mat-toolbar>
-</div>
-
-<mat-toolbar color="accent"
-  fxLayout
-  fxLayout.xs="row"
+  fxLayout.xs="column"
   fxLayoutAlign="center"
   fxLayoutGap="40px"
   fxlayoutGap.xs="0px"
   >
+    <span fxFlex="100%" fxLayoutAlign="center" style="padding-top: 17px;">Módulo de procesos</span>
+  </mat-toolbar>
 
-  <div fxFlex="100%" fxLayoutAlign="center" class="menu">
-    <button mat-raised-button color="primary" class="botones" (click)="abrirEntradas()">Entradas</button>
-    <button mat-raised-button color="primary" class="botones" (click)="abrirStock()">Stock</button>
-    <button mat-raised-button color="primary" class="botones" (click)="abrirFacturacion()">Facturar</button>
-  </div>
-</mat-toolbar>
-
-<div>
-  <app-entradas *ngIf="proceso=='entradas'"></app-entradas>
-  <app-stock *ngIf="proceso=='stock'"></app-stock>
-  <app-facturacion *ngIf="proceso=='facturacion'"></app-facturacion>
+  <mat-tab-group class="tabulador" (selectedTabChange)="onTabChanged($event)" mat-align-tabs="center">
+    <mat-tab label="Entradas">
+      <app-entradas></app-entradas>
+    </mat-tab>
+    <mat-tab label="Stock">
+      <app-stock></app-stock>
+    </mat-tab>
+    <mat-tab label="Facturar">
+      <app-facturacion></app-facturacion>
+    </mat-tab>
+  </mat-tab-group>
 </div>
