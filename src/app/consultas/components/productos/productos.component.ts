@@ -32,7 +32,7 @@ export class ProductosComponent implements OnInit {
   {
     this.MS.obtenerProductos().subscribe((prod:any)=>{
       this.productos = prod;
-      this.dataSource.data= this.productos;
+      this.dataSource.data = this.productos;
     });
   }
 

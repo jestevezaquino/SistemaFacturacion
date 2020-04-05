@@ -10,6 +10,7 @@ import { ClientesComponent } from './components/clientes/clientes.component';
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
 import { EntradasComponent } from './components/entradas/entradas.component';
 import { FacturacionesComponent } from './components/facturaciones/facturaciones.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { FacturacionesComponent } from './components/facturaciones/facturaciones
     CommonModule,
     ConsultasRoutingModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ConsultasModule {}

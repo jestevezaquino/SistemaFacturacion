@@ -1,4 +1,5 @@
 <div
+  id="imprimir"
   fxLayout
   fxLayout.xs = "column"
   fxLayoutAlign = "center"
@@ -10,11 +11,13 @@
     <div class="contenedor">
       <mat-form-field class="filtro">
         <mat-label>Filtrar por:</mat-label>
-        <mat-radio-group aria-label="Select an option">
-          <mat-radio-button value="producto">Producto</mat-radio-button>
-          <mat-radio-button value="fecha">Fecha</mat-radio-button>
-          <mat-radio-button value="proveedor">Proveedor</mat-radio-button>
-        </mat-radio-group>
+        <form [formGroup]="form" class="formulario">
+          <mat-radio-group (change)="setFilterColumn($event)" formControlName="opcion" aria-label="Select an option">
+            <mat-radio-button value="producto">Producto</mat-radio-button>&nbsp;&nbsp;
+            <mat-radio-button value="fecha">Fecha</mat-radio-button>&nbsp;&nbsp;
+            <mat-radio-button value="proveedor">Proveedor</mat-radio-button>
+          </mat-radio-group>
+        </form><br/>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Arroz.">
       </mat-form-field>
 
@@ -48,7 +51,7 @@
         <!-- Columna Fecha -->
         <ng-container matColumnDef="Fecha">
          <th mat-header-cell *matHeaderCellDef> Fecha </th>
-         <td mat-cell *matCellDef="let entrada"> {{entrada.fecha | date}} </td>
+         <td mat-cell *matCellDef="let entrada"> {{entrada.fecha}} </td>
         </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -60,5 +63,20 @@
       </div>
     </div>
   </div>
-  <div fxFlex="20%"></div>
+  <div fxFlex="20%" fxFlexAlign="center">
+    <div>
+      <div class="mat-typography">
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.conteo.value == true)"><strong>Conteo:</strong> {{stats.conteo}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.sumatoria.value == true)"><strong>Sumatoria:</strong> {{stats.sumatoria}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.promedio.value == true)"><strong>Promedio:</strong> {{stats.promedio}}</h3>
+      </div>
+      <form [formGroup]="opcionesForm">
+        <mat-checkbox formControlName="conteo">Incluir conteo en la busqueda.</mat-checkbox>
+        <mat-checkbox formControlName="sumatoria">Incluir sumatoria en la busqueda.</mat-checkbox>
+        <mat-checkbox formControlName="promedio">Incluir promedio en la busqueda.</mat-checkbox>
+      </form>
+      <br/>
+      <button mat-raised-button color="warn" (click)="imprimirConsulta()">PDF</button>
+    </div>
+  </div>
 </div>

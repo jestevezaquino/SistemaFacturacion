@@ -9,7 +9,7 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarComponent } from '../../../shared/snack-bar/snack-bar.component';
 
-import * as html2pdf from 'html2pdf.js'
+import * as html2pdf from 'html2pdf.js';
 
 @Component({
   selector: 'app-facturacion',
