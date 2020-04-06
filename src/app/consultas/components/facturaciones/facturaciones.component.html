@@ -48,20 +48,20 @@
 
         <!-- Columna Subtotal -->
         <ng-container matColumnDef="Subtotal">
-         <th mat-header-cell *matHeaderCellDef> Subtotal </th>
-         <td mat-cell *matCellDef="let factura"> {{factura.subTotal}} </td>
+         <th mat-header-cell *matHeaderCellDef> Subtotal (RD$) </th>
+         <td mat-cell *matCellDef="let factura"> {{factura.subTotal | number}} </td>
         </ng-container>
 
         <!-- Columna Descuento -->
         <ng-container matColumnDef="Descuento">
           <th mat-header-cell *matHeaderCellDef> Descuento </th>
-          <td mat-cell *matCellDef="let factura"> {{factura.descuentoPorciento}} </td>
+          <td mat-cell *matCellDef="let factura"> {{factura.descuentoPorciento}}% </td>
          </ng-container>
 
          <!-- Columna Fecha -->
         <ng-container matColumnDef="Total">
-          <th mat-header-cell *matHeaderCellDef> Total </th>
-          <td mat-cell *matCellDef="let factura"> {{factura.total}} </td>
+          <th mat-header-cell *matHeaderCellDef> Total (RD$) </th>
+          <td mat-cell *matCellDef="let factura"> {{factura.total | number}} </td>
          </ng-container>
 
          <!-- Columna Fecha -->
@@ -83,10 +83,10 @@
     <div>
       <div class="mat-typography">
         <h3 *ngIf="(stats!=null && this.opcionesForm.controls.conteo.value == true)"><strong>Conteo:</strong> {{stats.conteo}}</h3>
-        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.sumatoria.value == true)"><strong>Sumatoria (Total):</strong> {{stats.sumatoria}}</h3>
-        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.promedio.value == true)"><strong>Promedio (Total):</strong> {{stats.promedio}}</h3>
-        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.max.value == true)"><strong>Máximo (Total):</strong> {{stats.max}}</h3>
-        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.min.value == true)"><strong>Mínimo (Total):</strong> {{stats.min}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.sumatoria.value == true)"><strong>Sumatoria (Total):</strong> {{stats.sumatoria | currency:'RD$ '}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.promedio.value == true)"><strong>Promedio (Total):</strong> {{stats.promedio | currency:'RD$ '}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.max.value == true)"><strong>Máximo (Total):</strong> {{stats.max | currency:'RD$ '}}</h3>
+        <h3 *ngIf="(stats!=null && this.opcionesForm.controls.min.value == true)"><strong>Mínimo (Total):</strong> {{stats.min | currency:'RD$ '}}</h3>
       </div>
       <form [formGroup]="opcionesForm">
         <mat-checkbox formControlName="conteo">Incluir conteo en la busqueda.</mat-checkbox>

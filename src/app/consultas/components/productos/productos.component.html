@@ -1,10 +1,12 @@
 <div
+  id="imprimir"
   fxLayout
   fxLayout.xs = "column"
   fxLayoutAlign = "center"
   fxLayoutGap = "30px"
   fxLayoutGap.xs = "0px"
 >
+
   <div fxFlex="20%"></div>
   <div fxFlex="60%">
     <div class="contenedor">
@@ -30,8 +32,8 @@
 
           <!-- Columna precio -->
           <ng-container matColumnDef="precio">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio (RD$) </th>
-            <td mat-cell *matCellDef="let producto"> {{producto.precio}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+            <td mat-cell *matCellDef="let producto"> {{producto.precio | currency:'RD$ '}} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

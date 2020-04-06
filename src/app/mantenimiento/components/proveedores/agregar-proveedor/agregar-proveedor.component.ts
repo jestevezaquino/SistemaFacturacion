@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MantenimientoService } from 'src/services/mantenimiento.service';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmDialogComponent } from '../../../../shared/confirm-dialog/confirm-dialog.component';
 import { SnackBarComponent } from '../../../../shared/snack-bar/snack-bar.component';
 
 @Component({
@@ -17,7 +15,7 @@ export class AgregarProveedorComponent implements OnInit {
   proveedor:any;
   noDisponible:boolean;
 
-  constructor(private fb:FormBuilder, public dialog:MatDialog, private snackbar:MatSnackBar,
+  constructor(private fb:FormBuilder, private snackbar:MatSnackBar,
               private MS:MantenimientoService) { }
 
   ngOnInit(): void {
@@ -35,24 +33,6 @@ export class AgregarProveedorComponent implements OnInit {
     this.noDisponible = false;
   }
 
-  openDialog():void{
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '350px',
-      data: '¿Estás seguro de querer agregar este proveedor?'
-    });
-    dialogRef.afterClosed().subscribe( res => {
-      if(res){
-        this.MS.obtenerProveedorPorCedula(this.Form.controls.cedula.value).subscribe((data:any)=>{
-          if(data.cedula == 'NOT FOUND'){
-            this.agregarProveedor();
-          } else{
-            this.noDisponible = true;
-          }
-        });
-      }
-    });
-  }
-
   openSnackBar() {
     this.snackbar.openFromComponent(SnackBarComponent, {
       duration: 3 * 1000,
@@ -61,24 +41,30 @@ export class AgregarProveedorComponent implements OnInit {
   }
 
   agregarProveedor(){
-    const cedula = this.Form.controls.cedula.value;
-    const nombre = this.Form.controls.nombre.value;
-    const telefono = this.Form.controls.telefono.value;
-    const email = this.Form.controls.email.value;
+    this.MS.obtenerProveedorPorCedula(this.Form.controls.cedula.value).subscribe((data:any)=>{
+      if(data.cedula == 'NOT FOUND'){
+        const cedula = this.Form.controls.cedula.value;
+        const nombre = this.Form.controls.nombre.value;
+        const telefono = this.Form.controls.telefono.value;
+        const email = this.Form.controls.email.value;
 
-    this.proveedor = {
-      cedula: cedula,
-      nombre: nombre,
-      telefono: telefono,
-      email: email
-    }
+        this.proveedor = {
+          cedula: cedula,
+          nombre: nombre,
+          telefono: telefono,
+          email: email
+        }
 
-    //Agrega un proveedor a la BD mediante el uso de la API.
-    this.MS.agregarProveedor(this.proveedor).subscribe(request=>{
-      this.openSnackBar();
-      this.limpiarForm();
-    }, error => {
-      console.log(error);
+        //Agrega un proveedor a la BD mediante el uso de la API.
+        this.MS.agregarProveedor(this.proveedor).subscribe(request=>{
+          this.openSnackBar();
+          this.limpiarForm();
+        }, error => {
+          console.log(error);
+        });
+      } else{
+        this.noDisponible = true;
+      }
     });
   }
 }

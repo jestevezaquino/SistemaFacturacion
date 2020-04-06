@@ -25,8 +25,8 @@
           </mat-form-field>
         </form>
         <mat-card-actions align="end">
-          <button id="btnCliente" (click)="turnOnFormFactura()" class="boton" type="button" [disabled]="this.FormCliente.invalid" mat-raised-button color="primary"><mat-icon>add_circle_outline</mat-icon></button>
-          <button (click)="openDialogEliminarCliente()" class="boton2" type="reset" mat-raised-button color="warn"><mat-icon>delete</mat-icon></button>
+          <button id="btnCliente" (click)="turnOnFormFactura()" class="boton" type="button" [disabled]="this.FormCliente.invalid" mat-button color="primary"><mat-icon>done</mat-icon></button>
+          <button (click)="openDialogEliminarCliente()" class="boton2" type="reset" mat-button color="warn"><mat-icon>delete</mat-icon></button>
         </mat-card-actions>
       </mat-card-content>
     </mat-card>
@@ -59,10 +59,11 @@
           <mat-hint class="rojo" *ngIf="(this.Form.controls.cantidad.dirty || this.Form.controls.cantidad.touched) && this.Form.controls.cantidad.invalid">Requerido. Número entero.</mat-hint>
         </mat-form-field>
         <div>
-          <button id="btnF" class="boton agregarAFactura" type="button" [disabled]="this.Form.invalid" mat-raised-button color="primary" (click)="agregarAlCarrito()"><mat-icon>add_circle_outline</mat-icon></button>
+          <button id="btnF" class="boton agregarAFactura" type="button" [disabled]="this.Form.invalid" mat-button color="primary" (click)="agregarAlCarrito()"><mat-icon>add_circle_outline</mat-icon></button>
         </div>
         <div class="indicador">
-          <mat-icon *ngIf="control==false">error</mat-icon>
+          <mat-icon *ngIf="control==false">error</mat-icon><br/>
+          <span *ngIf="controlCliente==false;" class="advertencia" color="warn">Debe confirmar un cliente.</span>
         </div>
       </form>
     </mat-card>
@@ -79,7 +80,7 @@
        <!-- Columna Precio -->
        <ng-container matColumnDef="Precio">
         <th mat-header-cell *matHeaderCellDef> Precio (C/U) </th>
-        <td mat-cell *matCellDef="let item"> {{item.precio}} </td>
+        <td mat-cell *matCellDef="let item"> {{item.precio | currency:'RD$ '}} </td>
        </ng-container>
 
         <!-- Columna Cantidad -->
@@ -108,14 +109,14 @@
         <mat-card fxFlexAlign="start">
           <mat-card-content *ngIf="carritoCompras.length>0">
             <span mat-subheader><b>Cliente:</b>&nbsp;&nbsp; {{nombreCliente}}</span><br/>
-            <span mat-subheader><b>Suma importe:</b>&nbsp;&nbsp; RD$ {{datosFactura.sumaImporte}}</span><br/>
-            <span mat-subheader><b>Descuento:</b>&nbsp;&nbsp; RD$ {{datosFactura.sumaImporte * (datosFactura.descuento/100)}} <b>({{datosFactura.descuento}}%)</b></span><br/>
-            <span mat-subheader><b>Subtotal:</b>&nbsp;&nbsp; RD$ {{datosFactura.subtotal}}</span><br/>
-            <span mat-subheader><b>ITBIS:</b>&nbsp;&nbsp; RD$ {{datosFactura.itbis}} <b>(18%)</b></span><br/>
-            <span mat-subheader><b>Total:</b>&nbsp;&nbsp; RD$ {{datosFactura.total}}</span><br/>
+            <span mat-subheader><b>Suma importe:</b>&nbsp;&nbsp; {{datosFactura.sumaImporte | currency:'RD$ '}}</span><br/>
+            <span mat-subheader><b>Descuento:</b>&nbsp;&nbsp; {{datosFactura.sumaImporte * (datosFactura.descuento/100) | currency:'RD$ '}} <b> ({{datosFactura.descuento}}%)</b></span><br/>
+            <span mat-subheader><b>Subtotal:</b>&nbsp;&nbsp; {{datosFactura.subtotal | currency:'RD$ '}}</span><br/>
+            <span mat-subheader><b>ITBIS:</b>&nbsp;&nbsp; {{datosFactura.itbis | currency:'RD$ '}} <b> (18%)</b></span><br/>
+            <span mat-subheader><b>Total:</b>&nbsp;&nbsp; {{datosFactura.total | currency:'RD$ '}}</span><br/>
           </mat-card-content>
           <mat-card-actions *ngIf="carritoCompras.length>0">
-            <button (click)="openDialogFacturar()" class="boton" type="button" mat-raised-button color="primary">Facturar</button>
+            <button id="btnFacturar" (click)="openDialogFacturar()" class="boton" type="button" mat-raised-button color="primary">Generar factura</button>
           </mat-card-actions>
         </mat-card>
       </div>

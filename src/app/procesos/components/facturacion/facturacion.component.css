@@ -49,3 +49,11 @@ form{
 .indicador{
   padding-left: 1rem;
 }
+
+.contenedor{
+  margin-bottom: 1rem;
+}
+
+.advertencia{
+  color: red;
+}

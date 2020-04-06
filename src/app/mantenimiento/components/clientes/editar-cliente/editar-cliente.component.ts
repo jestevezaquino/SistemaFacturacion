@@ -61,7 +61,13 @@ export class EditarClienteComponent implements OnInit {
           if(data.cedula == 'NOT FOUND'){
             this.editarCliente();
           } else{
-            this.noDisponible = true;
+            if(data.clienteID == this.Form.controls.id.value)
+            {
+              this.editarCliente();
+            }else
+            {
+              this.noDisponible = true;
+            }
           }
         });
       }

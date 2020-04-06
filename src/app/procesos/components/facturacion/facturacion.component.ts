@@ -25,6 +25,7 @@ export class FacturacionComponent implements OnInit {
   FormCliente:FormGroup;
   arrayClientes:any = [];
   nombreCliente:string;
+  controlCliente:boolean;
 
   Form:FormGroup;
   control:boolean;
@@ -57,12 +58,15 @@ export class FacturacionComponent implements OnInit {
     this.Form.controls.precio.disable();
     this.Form.controls.disponible.disable();
     this.Form.controls.cantidad.disable();
-    (document.getElementById('btnF') as HTMLInputElement).disabled = true;
     this.control = false;
-
+    this.controlCliente = false;
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.noDisponible = true;
+  }
+
+  ngAfterViewInit() : void{
+    (document.getElementById('btnF') as HTMLInputElement).disabled = true;
   }
 
   obtenerInfoCliente(cliente){
@@ -82,6 +86,7 @@ export class FacturacionComponent implements OnInit {
     this.PS.obtenerStock().subscribe((data)=>{
       this.ProductoStock = data;
       this.control=true;
+      this.controlCliente = true;
     });
   }
 
@@ -105,10 +110,12 @@ export class FacturacionComponent implements OnInit {
     this.FormCliente.controls.cliente.enable();
     (document.getElementById('btnCliente') as HTMLInputElement).disabled = false;
     this.control = false;
+    this.controlCliente = false;
     this.ProductoStock = [];
     this.carritoCompras = [];
     this.datosFactura = { sumaImporte: 0, descuento: 0, subtotal: 0, itbis: 0, total: 0 }
     this.dataSource = new MatTableDataSource();
+    (document.getElementById('btnFacturar') as HTMLInputElement).disabled = false;
   }
 
   actualizarFormTabla(idProducto:number){
@@ -122,7 +129,7 @@ export class FacturacionComponent implements OnInit {
 
   agregarAlCarrito()
   {
-    if(this.Form.controls.disponible.value < this.Form.controls.cantidad.value)
+    if(this.Form.controls.disponible.value < this.Form.controls.cantidad.value || this.Form.controls.cantidad.value == 0)
     {
       this.control = false;
     }
@@ -274,5 +281,6 @@ export class FacturacionComponent implements OnInit {
     }
 
     this.PS.agregarFactura(Factura).subscribe((request)=>{});
+    (document.getElementById('btnFacturar') as HTMLInputElement).disabled = true;
   }
 }
